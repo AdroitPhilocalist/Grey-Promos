@@ -38,7 +38,7 @@ export default function Footer() {
             <ul className="space-y-5">
               {["Retail Branding", "Exhibition Stalls", "Mall Activations", "Mobile Van Campaigns", "Events"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">
+                  <Link href="/services" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">
                     {item}
                   </Link>
                 </li>
@@ -49,13 +49,11 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-10 uppercase tracking-[0.2em] text-[10px]">Navigation</h4>
             <ul className="space-y-5">
-              {["About Us", "Our Services", "Featured Projects", "Our Clients", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li><Link href="/about" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">About Us</Link></li>
+              <li><Link href="/services" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">Our Services</Link></li>
+              <li><Link href="/work" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">Featured Work</Link></li>
+              <li><Link href="/insights" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">Insights</Link></li>
+              <li><Link href="/contact" className="text-muted text-sm hover:text-accent transition-colors duration-300 font-light tracking-wide">Contact</Link></li>
             </ul>
           </div>
 

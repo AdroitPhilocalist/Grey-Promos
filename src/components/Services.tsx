@@ -5,14 +5,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
 
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 const categories = ["All", "Events", "Branding", "Fabrication", "Promotions", "Outdoor"];
 
-export default function Services() {
+interface ServicesProps {
+  limit?: number;
+  showFilters?: boolean;
+}
+
+export default function Services({ limit, showFilters = true }: ServicesProps) {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredServices = services.filter(
-    (service) => activeCategory === "All" || service.category === activeCategory
-  );
+  const filteredServices = services
+    .filter((service) => activeCategory === "All" || service.category === activeCategory)
+    .slice(0, limit);
 
   return (
     <section id="services" className="section-padding relative overflow-hidden">
@@ -40,26 +48,28 @@ export default function Services() {
             </motion.h2>
           </div>
           
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat, idx) => (
-              <motion.button
-                key={cat}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 + idx * 0.05 }}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  "px-8 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-500 border",
-                  activeCategory === cat
-                    ? "bg-white text-black border-white shadow-xl shadow-white/10"
-                    : "bg-transparent text-muted border-white/[0.05] hover:border-white/20"
-                )}
-              >
-                {cat}
-              </motion.button>
-            ))}
-          </div>
+          {showFilters && (
+            <div className="flex flex-wrap gap-3">
+              {categories.map((cat, idx) => (
+                <motion.button
+                  key={cat}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + idx * 0.05 }}
+                  onClick={() => setActiveCategory(cat)}
+                  className={cn(
+                    "px-8 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-500 border",
+                    activeCategory === cat
+                      ? "bg-white text-black border-white shadow-xl shadow-white/10"
+                      : "bg-transparent text-muted border-white/[0.05] hover:border-white/20"
+                  )}
+                >
+                  {cat}
+                </motion.button>
+              ))}
+            </div>
+          )}
         </div>
 
         <motion.div 
@@ -99,6 +109,21 @@ export default function Services() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {limit && (
+          <div className="mt-20 text-center">
+            <Link href="/services">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group flex items-center gap-3 mx-auto px-10 py-5 border border-white/[0.08] rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-500"
+              >
+                View All Services
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </motion.button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

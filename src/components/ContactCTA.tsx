@@ -1,11 +1,24 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
-import { Send, Phone, Mail } from "lucide-react";
+import { Send, Phone, Mail, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const servicesList = [
+  "Retail Branding",
+  "Event Production",
+  "Exhibition Stalls",
+  "Mall Activations",
+  "Mobile Van Campaigns",
+  "Product Launches",
+];
 
 export default function ContactCTA() {
+  const [selectedService, setSelectedService] = useState("Select a service");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   return (
     <section id="contact" className="section-padding relative overflow-hidden bg-surface">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
@@ -93,13 +106,61 @@ export default function ContactCTA() {
               <div className="space-y-3">
                 <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Service Required</label>
                 <div className="relative">
-                  <select className="w-full bg-transparent border-b border-white/10 py-3 focus:outline-none focus:border-accent transition-colors appearance-none text-muted font-light tracking-wide text-lg">
-                    <option className="bg-surface">Select a service</option>
-                    <option className="bg-surface">Retail Branding</option>
-                    <option className="bg-surface">Event Production</option>
-                    <option className="bg-surface">Exhibition Stalls</option>
-                    <option className="bg-surface">Mall Activations</option>
-                  </select>
+                  <button
+                    type="button"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full bg-transparent border-b border-white/10 py-3 flex items-center justify-between group focus:outline-none focus:border-accent transition-colors"
+                  >
+                    <span className={cn(
+                      "text-lg font-light tracking-wide transition-colors",
+                      selectedService === "Select a service" ? "text-muted/40" : "text-white"
+                    )}>
+                      {selectedService}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: "circOut" }}
+                    >
+                      <ChevronDown size={20} className="text-muted group-hover:text-accent transition-colors" />
+                    </motion.div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute z-[100] left-0 right-0 mt-2 p-2 bg-[#0A0A0A] border border-white/[0.1] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-3xl"
+                      >
+                        <div 
+                          className="max-h-60 overflow-y-auto overflow-x-hidden custom-scrollbar py-1"
+                          data-lenis-prevent
+                        >
+                          {servicesList.map((service) => (
+                            <motion.button
+                              key={service}
+                              type="button"
+                              whileHover={{ x: 5 }}
+                              onClick={() => {
+                                setSelectedService(service);
+                                setIsDropdownOpen(false);
+                              }}
+                              className={cn(
+                                "w-full text-left px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-300",
+                                selectedService === service 
+                                  ? "bg-accent text-white" 
+                                  : "text-white/90 hover:bg-white/[0.08] hover:text-white"
+                              )}
+                            >
+                              {service}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 

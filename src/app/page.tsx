@@ -17,14 +17,9 @@ export default function Home() {
       <Preloader />
       <Hero />
       <Marquee />
-      <About />
-      <Process />
-      <Services />
-      <Projects />
+      <Services limit={6} showFilters={false} />
+      <Projects limit={2} />
       <Clients />
-      <Operations />
-      <Team />
-      <Insights />
       <ContactCTA />
     </>
   );

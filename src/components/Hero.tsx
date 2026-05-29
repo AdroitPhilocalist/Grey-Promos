@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import { ArrowRight } from "lucide-react";
@@ -68,13 +69,13 @@ export default function Hero() {
 
             <motion.div variants={itemVariants} className="flex items-center">
               <MagneticButton>
-                <a 
-                  href="#work" 
+                <Link 
+                  href="/work" 
                   className="group flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-xl shadow-white/10"
                 >
                   Explore Work
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </MagneticButton>
             </motion.div>
           </div>

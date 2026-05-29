@@ -3,48 +3,57 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
-import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-export default function Projects() {
+interface ProjectsProps {
+  limit?: number;
+  showTitle?: boolean;
+}
+
+export default function Projects({ limit, showTitle = true }: ProjectsProps) {
+  const displayedProjects = limit ? projects.slice(0, limit) : projects;
+
   return (
     <section id="work" className="section-padding relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24">
-          <div className="max-w-2xl">
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-accent text-[10px] uppercase tracking-[0.3em] font-bold mb-6"
-            >
-              Selected Work
-            </motion.div>
-            <motion.h2 
+        {showTitle && (
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24">
+            <div className="max-w-2xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-accent text-[10px] uppercase tracking-[0.3em] font-bold mb-6"
+              >
+                Selected Work
+              </motion.div>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl md:text-7xl font-display font-bold leading-[1.1]"
+              >
+                Featured <br /> <span className="text-gradient">Case Studies</span>
+              </motion.h2>
+            </div>
+            <motion.p 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-display font-bold leading-[1.1]"
+              transition={{ delay: 0.2 }}
+              className="text-muted text-lg max-w-sm font-light tracking-wide leading-relaxed"
             >
-              Featured <br /> <span className="text-gradient">Case Studies</span>
-            </motion.h2>
+              From high-energy events to precision-built brand installations, we design for lasting impression.
+            </motion.p>
           </div>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted text-lg max-w-sm font-light tracking-wide leading-relaxed"
-          >
-            From high-energy events to precision-built brand installations, we design for lasting impression.
-          </motion.p>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
-          {projects.map((project, idx) => (
+          {displayedProjects.map((project, idx) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 40 }}
@@ -87,15 +96,20 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="mt-24 text-center">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-12 py-5 border border-white/[0.08] rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black hover:border-white transition-all duration-500"
-          >
-            Explore All Work
-          </motion.button>
-        </div>
+        {limit && (
+          <div className="mt-24 text-center">
+            <Link href="/work">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group flex items-center gap-3 mx-auto px-12 py-5 border border-white/[0.08] rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black hover:border-white transition-all duration-500"
+              >
+                Explore All Work
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </motion.button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

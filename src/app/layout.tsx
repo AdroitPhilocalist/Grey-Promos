@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageTransition from "@/components/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,20 +33,22 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
       >
         <div className="noise-overlay" />
-        <SmoothScroll>
-          <div className="relative">
-            {/* Ambient Background Elements */}
-            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
-              <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/[0.02] rounded-full blur-[120px]" />
-              <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-500/[0.01] rounded-full blur-[120px]" />
-              <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-accent/[0.01] rounded-full blur-[100px]" />
-            </div>
-            
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
+        <div className="relative">
+          {/* Ambient Background Elements */}
+          <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/[0.02] rounded-full blur-[120px]" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-500/[0.01] rounded-full blur-[120px]" />
+            <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-accent/[0.01] rounded-full blur-[100px]" />
           </div>
-        </SmoothScroll>
+          
+          <Navbar />
+          <main className="min-h-screen">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
