@@ -1,6 +1,7 @@
 import React from "react";
 import PageHero from "@/components/PageHero";
 import Projects from "@/components/Projects";
+import ClientLogoMarquee from "@/components/ClientLogoMarquee";
 import ContactCTA from "@/components/ContactCTA";
 
 export default function WorkPage() {
@@ -12,6 +13,7 @@ export default function WorkPage() {
         subtitle="A collection of high-energy events, precision-built brand installations, and immersive activations designed to leave a lasting impression."
       />
       <Projects showTitle={false} />
+      <ClientLogoMarquee />
       <ContactCTA />
     </>
   );

@@ -33,22 +33,24 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
       >
         <div className="noise-overlay" />
-        <div className="relative">
-          {/* Ambient Background Elements */}
-          <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/[0.02] rounded-full blur-[120px]" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-500/[0.01] rounded-full blur-[120px]" />
-            <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-accent/[0.01] rounded-full blur-[100px]" />
+        <SmoothScroll>
+          <div className="relative">
+            {/* Ambient Background Elements */}
+            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+              <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/[0.02] rounded-full blur-[120px]" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-500/[0.01] rounded-full blur-[120px]" />
+              <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-accent/[0.01] rounded-full blur-[100px]" />
+            </div>
+            
+            <Navbar />
+            <main className="min-h-screen">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </main>
+            <Footer />
           </div>
-          
-          <Navbar />
-          <main className="min-h-screen">
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer />
-        </div>
+        </SmoothScroll>
       </body>
     </html>
   );
