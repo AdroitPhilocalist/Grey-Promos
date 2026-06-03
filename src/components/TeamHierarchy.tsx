@@ -31,7 +31,8 @@ export default function TeamHierarchy() {
   const [activeMember, setActiveMember] = useState<any>(null);
 
   return (
-    <section className="section-padding bg-background relative overflow-hidden">
+    <section className="section-padding relative overflow-hidden">
+      <div className="polka-section-accent right" />
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-24">
           <motion.div 

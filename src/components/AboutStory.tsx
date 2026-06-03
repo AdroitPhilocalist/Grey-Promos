@@ -28,9 +28,9 @@ const milestones = [
 
 export default function AboutStory() {
   return (
-    <section className="relative overflow-hidden bg-surface py-24 md:py-32 lg:py-40">
+    <section className="relative overflow-hidden py-24 md:py-32 lg:py-40">
       <div className="absolute inset-x-0 top-0 h-px bg-white/[0.06]" />
-      <div className="absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-accent/[0.045] blur-[100px]" />
+      <div className="polka-section-accent" />
 
       <div className="container-custom relative z-10">
         <motion.div

@@ -18,6 +18,7 @@ export default function About() {
 
   return (
     <section id="about" className="section-padding relative overflow-hidden">
+      <div className="polka-section-accent right" />
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <motion.div

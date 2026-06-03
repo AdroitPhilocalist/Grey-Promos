@@ -20,15 +20,14 @@ export default function Marquee() {
 
   return (
     <section 
-      className="py-32 md:py-48 bg-black overflow-hidden relative"
+      className="relative overflow-hidden py-20 md:py-28"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Ambient Glows */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[140px] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="polka-section-accent" />
+      <div className="polka-section-accent right" />
       
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-8 md:gap-10">
         <div className="container-custom">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -55,7 +54,7 @@ export default function Marquee() {
 
         {/* Marquee Container with Edge Fading */}
         <div 
-          className="flex group pt-10 perspective-2000"
+          className="flex group pt-2 md:pt-4 perspective-2000"
           style={{ 
             maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
             WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
@@ -71,13 +70,13 @@ export default function Marquee() {
                 repeat: Infinity, 
                 ease: "linear" 
               }}
-              className="flex items-center gap-16 md:gap-24 pr-16 md:pr-24"
+              className="flex items-center gap-6 pr-6 md:gap-9 md:pr-9"
               style={{ transformStyle: "preserve-3d" }}
             >
               {marqueeItems.map((item, idx) => (
                 <motion.div 
                   key={idx} 
-                  className="relative flex-shrink-0 w-[350px] md:w-[750px] aspect-video group/card"
+                  className="relative flex-shrink-0 w-[240px] sm:w-[310px] md:w-[420px] lg:w-[480px] aspect-video group/card"
                   whileHover={{ 
                     scale: 1.04, 
                     rotateY: 8, 
@@ -87,10 +86,10 @@ export default function Marquee() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {/* Advanced Glass Border Glow */}
-                  <div className="absolute -inset-[2px] bg-gradient-to-tr from-white/20 via-accent/40 to-white/5 rounded-[2.5rem] blur-[2px] opacity-30 group-hover/card:opacity-100 transition-all duration-700" />
+                  <div className="absolute -inset-[2px] bg-gradient-to-tr from-white/18 via-white/20 to-white/5 rounded-[1.4rem] md:rounded-[1.75rem] blur-[2px] opacity-25 group-hover/card:opacity-75 transition-all duration-700" />
                   
                   {/* Main Video Container */}
-                  <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden bg-[#050505] border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                  <div className="relative h-full w-full overflow-hidden rounded-[1.4rem] border border-white/[0.08] bg-white/[0.015] shadow-[0_16px_36px_rgba(0,0,0,0.4)] backdrop-blur-sm md:rounded-[1.75rem]">
                     <motion.video
                       src={item.video}
                       autoPlay
@@ -111,11 +110,11 @@ export default function Marquee() {
                     {/* Light Leak Flare */}
                     <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-1000 rotate-12 pointer-events-none" />
                     
-                    <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none" />
+                    <div className="absolute inset-0 pointer-events-none opacity-[0.08] bg-[radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1.8px)] [background-size:18px_18px]" />
 
                     {/* Content Overlay */}
-                    <div className="absolute inset-x-0 bottom-0 p-12 md:p-16 transform transition-all duration-700 group-hover/card:translate-y-[-10px]">
-                      <div className="flex flex-col gap-6">
+                    <div className="absolute inset-x-0 bottom-0 p-5 transform transition-all duration-700 group-hover/card:translate-y-[-6px] md:p-7 lg:p-8">
+                      <div className="flex flex-col gap-3 md:gap-4">
                         <div className="flex items-center gap-4 opacity-0 group-hover/card:opacity-100 transition-all duration-500 translate-y-4 group-hover/card:translate-y-0">
                           <div className="flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
@@ -124,7 +123,7 @@ export default function Marquee() {
                           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-accent">Active Reel</span>
                           
                           {/* Mini Progress Bar for Hovered State */}
-                          <div className="w-24 h-[1px] bg-white/10 relative overflow-hidden">
+                          <div className="w-16 h-[1px] bg-white/10 relative overflow-hidden md:w-20">
                             <motion.div 
                               initial={{ width: 0 }}
                               whileHover={{ width: "100%" }}
@@ -134,15 +133,14 @@ export default function Marquee() {
                           </div>
                         </div>
                         
-                        <h3 className="text-3xl md:text-6xl font-display font-bold text-white tracking-tighter leading-none drop-shadow-2xl">
+                        <h3 className="text-xl font-display font-bold leading-none tracking-tighter text-white drop-shadow-2xl md:text-3xl lg:text-4xl">
                           {item.title}
                         </h3>
                       </div>
                     </div>
                   </div>
 
-                  {/* High-End Ambient Glow behind card */}
-                  <div className="absolute -inset-16 bg-accent/[0.08] rounded-full blur-[100px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+                  <div className="absolute -inset-6 opacity-0 transition-opacity duration-1000 pointer-events-none group-hover/card:opacity-25 bg-[radial-gradient(circle,rgba(226,232,240,0.42)_1px,transparent_1.9px)] [background-size:28px_28px] [mask-image:linear-gradient(135deg,transparent,rgba(0,0,0,0.8),transparent)]" />
                 </motion.div>
               ))}
             </motion.div>

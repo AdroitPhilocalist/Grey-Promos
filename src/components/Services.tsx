@@ -25,6 +25,7 @@ export default function Services({ limit, showFilters = true }: ServicesProps) {
   return (
     <section id="services" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="polka-section-accent" />
       
       <div className="container-custom">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24">

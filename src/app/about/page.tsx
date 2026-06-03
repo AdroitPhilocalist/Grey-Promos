@@ -26,7 +26,8 @@ export default function AboutPage() {
       <TeamHierarchy />
 
       {/* The National & Global Reach - Combined Cards & 3D Globe */}
-      <section className="section-padding bg-surface overflow-hidden">
+      <section className="section-padding overflow-hidden relative">
+        <div className="polka-section-accent right" />
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-24">
             <motion.div 
@@ -112,7 +113,7 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-16 p-8 rounded-[2rem] bg-accent/[0.03] border border-accent/[0.08] relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-accent/[0.05] blur-[40px] rounded-full" />
+                <div className="absolute right-0 top-0 h-28 w-28 opacity-35 bg-[radial-gradient(circle,rgba(255,74,28,0.42)_1px,transparent_1.8px)] [background-size:16px_16px] [mask-image:linear-gradient(135deg,rgba(0,0,0,0.9),transparent_70%)]" />
                 <p className="text-accent text-sm md:text-base font-light italic leading-relaxed relative z-10">
                   "Our global infrastructure ensures that your brand maintains quality and consistency, no matter where the activation happens."
                 </p>

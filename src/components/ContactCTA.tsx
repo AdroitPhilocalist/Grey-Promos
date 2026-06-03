@@ -20,8 +20,9 @@ export default function ContactCTA() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden bg-surface">
+    <section id="contact" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="polka-section-accent right" />
       
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
@@ -81,7 +82,7 @@ export default function ContactCTA() {
             viewport={{ once: true }}
             className="glass-card p-10 md:p-16 relative"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-[60px] rounded-full pointer-events-none" />
+            <div className="absolute right-0 top-0 h-40 w-40 opacity-30 pointer-events-none bg-[radial-gradient(circle,rgba(255,74,28,0.42)_1px,transparent_1.8px)] [background-size:18px_18px] [mask-image:linear-gradient(135deg,rgba(0,0,0,0.9),transparent_68%)]" />
             
             <form className="space-y-10 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">

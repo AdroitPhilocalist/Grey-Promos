@@ -39,15 +39,14 @@ export default function Preloader() {
           }}
           className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Ambient Background Glows */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
               animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.03, 0.05, 0.03] 
+                y: ["-4%", "4%", "-4%"],
+                opacity: [0.16, 0.28, 0.16] 
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent rounded-full blur-[120px]" 
+              className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,74,28,0.42)_1px,transparent_1.8px)] [background-size:26px_26px] [mask-image:linear-gradient(120deg,transparent,rgba(0,0,0,0.9),transparent)]" 
             />
           </div>
 
@@ -122,8 +121,7 @@ export default function Preloader() {
             </motion.div>
           </div>
 
-          {/* Noise Overlay to match site texture */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-noise" />
+          <div className="absolute inset-0 opacity-[0.08] pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.16)_1px,transparent_1.7px)] [background-size:18px_18px]" />
         </motion.div>
       )}
     </AnimatePresence>

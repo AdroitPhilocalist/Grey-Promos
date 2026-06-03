@@ -15,8 +15,9 @@ export default function Projects({ limit, showTitle = true }: ProjectsProps) {
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
 
   return (
-    <section id="work" className="section-padding relative">
+    <section id="work" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="polka-section-accent right" />
       
       <div className="container-custom">
         {showTitle && (

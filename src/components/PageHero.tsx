@@ -10,12 +10,11 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, badge }: PageHeroProps) {
   return (
-    <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
+    <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-[10%] -left-[10%] w-[60%] h-[60%] bg-accent/[0.03] rounded-full blur-[160px]" />
-        <div className="absolute bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-blue-500/[0.02] rounded-full blur-[160px]" />
-        <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
+        <div className="absolute inset-0 polka-hero-field pointer-events-none" />
+        <div className="polka-section-accent right" />
       </div>
 
       <div className="container-custom relative z-10">

@@ -2,12 +2,12 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { clients } from "@/data/clients";
 
 export default function Clients() {
   return (
-    <section id="clients" className="section-padding relative overflow-hidden">
-      <div className="container-custom text-center mb-24">
+    <section id="clients" className="relative overflow-hidden pt-20 pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12">
+      <div className="polka-section-accent" />
+      <div className="container-custom text-center">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export default function Clients() {
         </motion.h2>
       </div>
 
-      <div className="flex overflow-hidden group mb-32">
+      {/* <div className="flex overflow-hidden group mb-32">
         {[...Array(2)].map((_, i) => (
           <motion.div
             key={i}
@@ -63,7 +63,7 @@ export default function Clients() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

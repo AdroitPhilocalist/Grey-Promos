@@ -29,8 +29,9 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="section-padding relative overflow-hidden bg-surface">
+    <section className="section-padding relative overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="polka-section-accent" />
       
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-24">
