@@ -35,6 +35,9 @@ export default function PolkaBackdrop() {
   const ribbonX = useTransform(smoothScrollDepth, [0, 1], [60, -70]);
   const ribbonY = useTransform(smoothScrollDepth, [0, 1], [-18, 42]);
   const ribbonRotate = useTransform(smoothScrollDepth, [0, 1], [-2.5, 2.5]);
+  const nearX = useTransform(smoothScrollDepth, [0, 1], [90, -120]);
+  const nearY = useTransform(smoothScrollDepth, [0, 1], [-110, 155]);
+  const nearScale = useTransform(smoothScrollDepth, [0, 1], [1.04, 0.96]);
   const railScale = useTransform(smoothScrollDepth, [0, 1], [0.08, 1]);
 
   return (
@@ -54,6 +57,10 @@ export default function PolkaBackdrop() {
       <motion.div
         className="polka-layer-ribbon"
         style={{ x: ribbonX, y: ribbonY, rotate: ribbonRotate }}
+      />
+      <motion.div
+        className="polka-layer-near"
+        style={{ x: nearX, y: nearY, scale: nearScale }}
       />
       <div className="polka-scroll-rail">
         <motion.div className="polka-scroll-fill" style={{ scaleY: railScale }} />

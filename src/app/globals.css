@@ -88,6 +88,7 @@ body {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    perspective: 900px;
     background:
       radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.07), transparent 38%),
       radial-gradient(circle at 12% 18%, rgba(148, 163, 184, 0.06), transparent 30%),
@@ -107,22 +108,25 @@ body {
       radial-gradient(circle, rgba(241, 245, 249, 0.86) 1.35px, transparent 2.25px) 0 0 / 88px 88px,
       radial-gradient(circle, rgba(203, 213, 225, 0.54) 1.55px, transparent 2.55px) 42px 30px / 154px 154px;
     mask-image: linear-gradient(120deg, transparent 4%, rgba(0, 0, 0, 0.92) 28%, transparent 76%);
+    filter: drop-shadow(0 0 8px rgba(226, 232, 240, 0.1));
   }
 
   .polka-layer-secondary {
-    opacity: 0.28;
+    opacity: 0.24;
     background:
       radial-gradient(circle, rgba(255, 255, 255, 0.68) 1.15px, transparent 2px) 0 0 / 132px 132px,
       radial-gradient(circle, rgba(203, 213, 225, 0.48) 1.75px, transparent 2.75px) 70px 42px / 220px 220px;
     mask-image: linear-gradient(245deg, transparent 16%, rgba(0, 0, 0, 0.76) 38%, transparent 82%);
+    filter: blur(0.25px);
   }
 
   .polka-layer-fine {
-    opacity: 0.24;
+    opacity: 0.2;
     background:
-      radial-gradient(circle, rgba(255, 255, 255, 0.64) 1px, transparent 1.75px) 0 0 / 64px 64px,
-      radial-gradient(circle, rgba(203, 213, 225, 0.38) 1.05px, transparent 1.85px) 26px 18px / 118px 118px;
+      radial-gradient(circle, rgba(255, 255, 255, 0.5) 0.75px, transparent 1.45px) 0 0 / 64px 64px,
+      radial-gradient(circle, rgba(203, 213, 225, 0.32) 0.85px, transparent 1.6px) 26px 18px / 118px 118px;
     mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.72) 20%, rgba(0, 0, 0, 0.36) 70%, transparent);
+    filter: blur(0.6px);
   }
 
   .polka-layer-ribbon {
@@ -139,6 +143,22 @@ body {
       radial-gradient(circle, rgba(203, 213, 225, 0.5) 1.6px, transparent 2.6px) 22px 18px / 138px 138px;
     filter: drop-shadow(0 18px 42px rgba(226, 232, 240, 0.08));
     mask-image: linear-gradient(90deg, transparent, #000 24%, #000 70%, transparent);
+  }
+
+  .polka-layer-near {
+    position: absolute;
+    inset: -18%;
+    pointer-events: none;
+    opacity: 0.28;
+    will-change: transform;
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.96) 2.6px, transparent 4px) 7% 12% / 260px 260px,
+      radial-gradient(circle, rgba(226, 232, 240, 0.78) 2px, transparent 3.3px) 64px 96px / 340px 300px,
+      radial-gradient(circle, rgba(148, 163, 184, 0.56) 1.65px, transparent 2.9px) 146px 30px / 430px 360px;
+    filter:
+      drop-shadow(0 0 8px rgba(255, 255, 255, 0.26))
+      drop-shadow(0 0 18px rgba(226, 232, 240, 0.12));
+    mask-image: radial-gradient(circle at 46% 42%, #000 0%, rgba(0, 0, 0, 0.84) 48%, transparent 82%);
   }
 
   .polka-scroll-rail {
@@ -239,7 +259,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .polka-layer,
-  .polka-layer-ribbon {
+  .polka-layer-ribbon,
+  .polka-layer-near {
     transform: none !important;
   }
 }

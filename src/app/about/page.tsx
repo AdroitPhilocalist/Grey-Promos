@@ -122,9 +122,7 @@ export default function AboutPage() {
           </div>
 
           {/* Enhanced 3D Globe Visualization */}
-          <div className="w-full h-[520px] sm:h-[600px] md:h-[720px] rounded-[2rem] bg-[#020817] relative overflow-hidden border border-white/[0.06] shadow-2xl shadow-sky-950/20">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(14,165,233,0.2),transparent_44%)]" />
-            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.06] to-transparent" />
+          <div className="w-full h-[520px] sm:h-[600px] md:h-[720px] rounded-[2rem] relative overflow-hidden">
             <div className="absolute top-8 left-8 right-8 z-20 md:top-12 md:left-12 md:right-auto">
               <span className="text-accent text-[10px] uppercase tracking-[0.4em] font-bold block mb-2">Interactive Explorer</span>
               <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tighter">Presence <span className="text-gradient">Visualized</span></h3>

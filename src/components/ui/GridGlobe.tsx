@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { operations } from "@/data/operations";
 
@@ -100,8 +100,9 @@ const presenceRoutes = [...indiaLocations, ...globalLocations].map((location, in
 
 export function GridGlobe() {
   const [activePresence, setActivePresence] = useState<ActivePresence | null>(null);
+  const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0 });
 
-  const globeConfig = {
+  const globeConfig = useMemo(() => ({
     pointSize: 4.4,
     globeColor: "#062056",
     showAtmosphere: true,
@@ -120,17 +121,33 @@ export function GridGlobe() {
     rings: 1,
     maxRings: 3.6,
     initialPosition: { lat: 22.5726, lng: 88.3639 },
-    autoRotate: true,
-    autoRotateSpeed: 0.42,
-  };
+    autoRotate: false,
+  }), []);
 
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="relative h-full w-full overflow-hidden">
-        <div className="absolute inset-x-0 bottom-0 z-40 h-44 pointer-events-none select-none bg-gradient-to-b from-transparent to-[#030303]" />
-        <div className="pointer-events-none absolute bottom-8 left-8 right-8 z-50 md:bottom-auto md:left-auto md:right-10 md:top-10 md:w-[320px]">
-          <div className="overflow-hidden rounded-[1.25rem] border border-white/[0.1] bg-[#050b16]/85 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl">
-            <div className="mb-3 flex items-center gap-2">
+      <div
+        className="relative h-full w-full overflow-hidden"
+        onPointerMove={(event) => {
+          const bounds = event.currentTarget.getBoundingClientRect();
+          setPointerPosition({
+            x: event.clientX - bounds.left,
+            y: event.clientY - bounds.top,
+          });
+        }}
+      >
+        {activePresence ? (
+          <div
+            className="pointer-events-none absolute z-50 min-w-[220px] max-w-[300px] -translate-x-1/2 -translate-y-[calc(100%+18px)]"
+            style={{
+              left: `clamp(150px, ${pointerPosition.x}px, calc(100% - 150px))`,
+              top: Math.max(pointerPosition.y, 86),
+            }}
+          >
+            <div className="relative overflow-hidden rounded-2xl border border-white/[0.14] bg-black/55 px-5 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl">
+              <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+              <div className="absolute right-0 top-0 h-20 w-20 opacity-50 bg-[radial-gradient(circle,rgba(255,255,255,0.34)_1px,transparent_1.8px)] [background-size:12px_12px] [mask-image:linear-gradient(135deg,#000,transparent_76%)]" />
+              <div className="mb-2 flex items-center gap-2">
               <span
                 className={`h-2 w-2 rounded-full ${
                   activePresence?.scope === "global"
@@ -147,12 +164,14 @@ export function GridGlobe() {
                       ? "Headquarters"
                       : "Grey Promos Network"}
               </span>
-            </div>
-            <div className="font-display text-2xl font-bold tracking-tight text-white md:text-3xl">
-              {activePresence?.label ?? "India + Global Reach"}
+              </div>
+              <div className="relative font-display text-xl font-bold tracking-tight text-white md:text-2xl">
+                {activePresence.label}
+              </div>
+              <div className="absolute left-1/2 top-full h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 border-b border-r border-white/[0.14] bg-black/55" />
             </div>
           </div>
-        </div>
+        ) : null}
         <div className="absolute inset-x-0 top-[7%] z-10 h-[86%] md:top-[3%] md:h-[96%]">
           <World
             data={presenceRoutes}

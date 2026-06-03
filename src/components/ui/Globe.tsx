@@ -4,6 +4,7 @@ import { Color, Object3D, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, ThreeElement, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import countries from "@/data/globe.json";
 declare module "@react-three/fiber" {
   interface ThreeElements {
@@ -15,6 +16,10 @@ extend({ ThreeGlobe });
 
 const RING_PROPAGATION_SPEED = 3;
 const cameraZ = 300;
+// Tune this if you want a different initial globe view.
+// This controls the CAMERA view, so it will visibly change what continent starts in front.
+const INDIA_CAMERA_AZIMUTH_DEGREES = -282;
+const INDIA_CAMERA_POLAR_DEGREES = 78;
 
 type Position = {
   order: number;
@@ -318,7 +323,6 @@ export function WebGLRendererConfig() {
 
 export function World(props: WorldProps) {
   const { globeConfig } = props;
-  const [isPaused, setIsPaused] = useState(false);
 
   return (
     <Canvas camera={{ fov: 48, near: 180, far: 1800, position: [0, 0, cameraZ] }}>
@@ -341,26 +345,46 @@ export function World(props: WorldProps) {
       <Globe
         {...props}
         onActivePoint={(point) => {
-          setIsPaused(Boolean(point));
           props.onActivePoint?.(point);
         }}
       />
-      <OrbitControls
-        enablePan={false}
-        enableZoom={false}
-        minDistance={cameraZ}
-        maxDistance={cameraZ}
-        autoRotateSpeed={globeConfig.autoRotateSpeed ?? 0.7}
-        autoRotate={!isPaused && (globeConfig.autoRotate ?? true)}
-        minPolarAngle={Math.PI / 3.5}
-        maxPolarAngle={Math.PI - Math.PI / 3}
-      />
+      <ManualOrbitControls />
     </Canvas>
+  );
+}
+
+function ManualOrbitControls() {
+  const controlsRef = useRef<OrbitControlsImpl | null>(null);
+
+  useEffect(() => {
+    if (!controlsRef.current) return;
+
+    controlsRef.current.setAzimuthalAngle(degreesToRadians(INDIA_CAMERA_AZIMUTH_DEGREES));
+    controlsRef.current.setPolarAngle(degreesToRadians(INDIA_CAMERA_POLAR_DEGREES));
+    controlsRef.current.update();
+  }, []);
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enablePan={false}
+      enableZoom={false}
+      enableRotate
+      minDistance={cameraZ}
+      maxDistance={cameraZ}
+      autoRotate={false}
+      minPolarAngle={Math.PI / 3.5}
+      maxPolarAngle={Math.PI - Math.PI / 3}
+    />
   );
 }
 
 function getPointKey(point: Pick<GlobePoint, "lat" | "lng">) {
   return `${point.lat.toFixed(4)}:${point.lng.toFixed(4)}`;
+}
+
+function degreesToRadians(degrees: number) {
+  return (degrees * Math.PI) / 180;
 }
 
 function getHoveredPoint(event: any): GlobePoint | null {
