@@ -12,7 +12,7 @@ const marqueeRows = [
 function ClientLogoTile({ client }: { client: string }) {
   return (
     <div className="group mx-9 flex h-20 min-w-max items-center transition-all duration-500 hover:-translate-y-1 md:mx-14 md:h-24">
-      <span className="client-brand-name whitespace-nowrap text-4xl font-semibold italic text-white/24 transition-all duration-500 group-hover:text-white md:text-6xl">
+      <span className="whitespace-nowrap font-display text-3xl font-bold tracking-tight text-white/22 transition-all duration-500 group-hover:text-white md:text-5xl">
         {client}
       </span>
     </div>
