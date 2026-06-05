@@ -51,7 +51,7 @@ export default function Hero() {
 
           <motion.h1 
             variants={itemVariants}
-            className="text-6xl md:text-9xl lg:text-[11rem] font-display font-bold leading-[0.85] mb-16 tracking-tight"
+            className="text-4xl md:text-7xl lg:text-[9rem] font-display font-bold leading-[0.85] mb-16 tracking-tight"
           >
             Brand <br />
             <span className="text-gradient">Experiences</span> <br />

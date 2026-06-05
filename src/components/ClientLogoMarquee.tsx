@@ -1,35 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { clients } from "@/data/clients";
-
-const clientLogos: Record<string, { src: string; fit?: "contain" | "cover"; padded?: boolean }> = {
-  AMD: { src: "/logos/AMD.png" },
-  Bosch: { src: "/logos/bosch.png" },
-  BookMyShow: { src: "/logos/bms.png" },
-  Chevrolet: { src: "/logos/chevrolet.jpeg", padded: true },
-  "Harley-Davidson": { src: "/logos/Harley-Davidson.png" },
-  Hyundai: { src: "/logos/hyundai.png" },
-  IBM: { src: "/logos/IBM.png" },
-  Intel: { src: "/logos/intel.png" },
-  Jeep: { src: "/logos/Jeep.jpeg", padded: true },
-  Kia: { src: "/logos/KIA.png" },
-  KTM: { src: "/logos/KTM.jpeg", padded: true },
-  Lenovo: { src: "/logos/Lenovo.png" },
-  "Mitsubishi Electric": { src: "/logos/mitshubishi_electric.png" },
-  Netmeds: { src: "/logos/netmeds.png" },
-  "P.C. Chandra Jewellers": { src: "/logos/pc-chandra.png" },
-  Ryzen: { src: "/logos/Ryzen.jpeg", padded: true },
-  "Senco Gold": { src: "/logos/senco.jpeg", padded: true },
-  "Tata Motors": { src: "/logos/tata-motors.png" },
-  Tanishq: { src: "/logos/Tanishq.jpeg", padded: true },
-  TBZ: { src: "/logos/TBZ.png" },
-  Triumph: { src: "/logos/Triumph.png" },
-  Vivo: { src: "/logos/vivo.png" },
-  Volkswagen: { src: "/logos/volkswagen.jpeg", padded: true },
-};
 
 const marqueeRows = [
   clients.slice(0, Math.ceil(clients.length / 2)),
@@ -37,34 +10,11 @@ const marqueeRows = [
 ];
 
 function ClientLogoTile({ client }: { client: string }) {
-  const logo = clientLogos[client];
-
   return (
-    <div className="group mx-3 flex h-28 min-w-[300px] items-center gap-5 rounded-[1.35rem] border border-white/[0.08] bg-white/[0.025] px-5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-accent/35 hover:bg-white/[0.045] md:h-32 md:min-w-[360px] md:px-6">
-      <div className="relative flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.92] p-3 shadow-2xl shadow-black/20 transition-all duration-500 group-hover:bg-white md:h-20 md:w-28">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.45),transparent_42%)]" />
-        {logo ? (
-          <Image
-            src={logo.src}
-            alt={`${client} logo`}
-            fill
-            sizes="112px"
-            className={`${logo.fit === "cover" ? "object-cover" : "object-contain"} ${logo.padded ? "p-2" : "p-3"}`}
-          />
-        ) : (
-          <span className="relative font-display text-sm font-black tracking-tight text-black md:text-base">
-            {client.slice(0, 3).toUpperCase()}
-          </span>
-        )}
-      </div>
-      <div className="min-w-0">
-        <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/35">
-          Client Partner
-        </div>
-        <div className="mt-1 truncate font-display text-xl font-bold tracking-tight text-white/80 transition-colors duration-500 group-hover:text-white md:text-2xl">
-          {client}
-        </div>
-      </div>
+    <div className="group mx-9 flex h-20 min-w-max items-center transition-all duration-500 hover:-translate-y-1 md:mx-14 md:h-24">
+      <span className="client-brand-name whitespace-nowrap text-4xl font-semibold italic text-white/24 transition-all duration-500 group-hover:text-white md:text-6xl">
+        {client}
+      </span>
     </div>
   );
 }

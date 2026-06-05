@@ -69,6 +69,12 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/40;
   }
 
+  .client-brand-name {
+    font-family: "Bodoni 72", "Didot", "Baskerville", "Libre Baskerville", Georgia, serif;
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: 0;
+  }
+
   .noise-overlay {
     position: fixed;
     top: 0;

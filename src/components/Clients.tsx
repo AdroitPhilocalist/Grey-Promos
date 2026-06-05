@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { clients } from "@/data/clients";
 
 export default function Clients() {
   return (
