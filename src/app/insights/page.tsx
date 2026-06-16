@@ -1,5 +1,6 @@
 import React from "react";
 import PageHero from "@/components/PageHero";
+import Conference3DHero from "@/components/Conference3DHero";
 import Insights from "@/components/Insights";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -11,6 +12,7 @@ export default function InsightsPage() {
         title="Knowledge That Moves"
         subtitle="Exploring the latest trends, strategies, and success stories in the world of brand experiences and on-ground marketing."
       />
+      <Conference3DHero />
       <Insights />
       <ContactCTA />
     </>

@@ -3,7 +3,7 @@
 import React from "react";
 import PageHero from "@/components/PageHero";
 import AboutStory from "@/components/AboutStory";
-import TeamHierarchy from "@/components/TeamHierarchy";
+import AboutTeamReveal from "@/components/AboutTeamReveal";
 import { GridGlobe } from "@/components/ui/GridGlobe";
 import ContactCTA from "@/components/ContactCTA";
 import { motion } from "framer-motion";
@@ -13,17 +13,17 @@ import { Globe, MapPin } from "lucide-react";
 export default function AboutPage() {
   return (
     <>
-      <PageHero 
+      {/* <PageHero 
         badge="Our Legacy"
         title="Extraordinary Origins"
         subtitle="Exploring the passion, the experts, and the national reach that define Grey Promos India Pvt. Ltd."
-      />
+      /> */}
       
       {/* The Company Story - Horizontal Path */}
       <AboutStory />
 
-      {/* The Expert Collective - Visual Hierarchy */}
-      <TeamHierarchy />
+      {/* Optional Expert Collective */}
+      <AboutTeamReveal />
 
       {/* The National & Global Reach - Combined Cards & 3D Globe */}
       <section className="section-padding overflow-hidden relative">
