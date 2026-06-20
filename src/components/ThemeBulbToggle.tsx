@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Sun } from "lucide-react";
 
 type ThemeMode = "dark" | "light";
 
@@ -16,7 +17,6 @@ function applyTheme(mode: ThemeMode) {
 export default function ThemeBulbToggle() {
   const [theme, setTheme] = useState<ThemeMode>("dark");
   const [isReady, setIsReady] = useState(false);
-  const pullControls = useAnimationControls();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("grey-promos-theme") as ThemeMode | null;
@@ -26,57 +26,57 @@ export default function ThemeBulbToggle() {
     setIsReady(true);
   }, []);
 
-  const toggleTheme = async () => {
+  const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
-    await pullControls.start({
-      y: [0, 34, 24, 0],
-      transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
-    });
     setTheme(nextTheme);
     applyTheme(nextTheme);
   };
 
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: { offset: { y: number } }) => {
-    if (info.offset.y > 16) {
-      void toggleTheme();
-    } else {
-      void pullControls.start({ y: 0, transition: { type: "spring", stiffness: 420, damping: 22 } });
-    }
-  };
+  const isDark = theme === "dark";
 
   return (
-    <div
-      className={`theme-bulb-toggle ${isReady ? "is-ready" : ""}`}
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-    >
-      <div className="theme-bulb-cord" />
+    <div className={`theme-toggle ${isReady ? "is-ready" : ""}`}>
       <motion.button
         type="button"
-        className="theme-bulb-control"
-        animate={pullControls}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 46 }}
-        dragElastic={0.18}
-        dragMomentum={false}
-        onDragEnd={handleDragEnd}
-        onClick={() => void toggleTheme()}
-        whileTap={{ cursor: "grabbing" }}
+        className={`theme-toggle-control ${isDark ? "is-dark" : "is-light"}`}
+        onClick={toggleTheme}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.92 }}
         aria-pressed={theme === "light"}
-        title="Pull to change theme"
+        aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+        title={`Switch to ${isDark ? "light" : "dark"} theme`}
       >
-        <span className="theme-bulb-wire" />
-        <span className="theme-bulb-glow" />
-        <span className="theme-bulb-glass">
-          <span className="theme-bulb-filament" />
-          <span className="theme-bulb-shine" />
-        </span>
-        <span className="theme-bulb-cap" />
-        <span className="theme-bulb-chain">
-          <span />
-          <span />
-          <span />
-        </span>
-        <span className="theme-bulb-pull" />
+        <span className="theme-toggle-aura" aria-hidden="true" />
+        <AnimatePresence mode="wait" initial={false}>
+          {isDark ? (
+            <motion.span
+              key="sun"
+              className="theme-sun-icon"
+              initial={{ opacity: 0, rotate: -42, scale: 0.62 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 42, scale: 0.62 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Sun aria-hidden="true" strokeWidth={1.8} />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="owl"
+              className="theme-owl-icon"
+              initial={{ opacity: 0, y: 5, scale: 0.62 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -5, scale: 0.62 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            >
+              <span className="theme-owl-ear theme-owl-ear-left" />
+              <span className="theme-owl-ear theme-owl-ear-right" />
+              <span className="theme-owl-eye theme-owl-eye-left" />
+              <span className="theme-owl-eye theme-owl-eye-right" />
+              <span className="theme-owl-beak" />
+            </motion.span>
+          )}
+        </AnimatePresence>
       </motion.button>
     </div>
   );

@@ -45,7 +45,7 @@ export default function AboutPage() {
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-7xl font-display font-bold mb-8 tracking-tighter"
             >
-              Our Global <br /> <span className="text-gradient">Infrastructure</span>
+              Our Global <br /> <span className="text-gradient">Presence</span>
             </motion.h2>
           </div>
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
                   <MapPin size={28} strokeWidth={1.5} />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-white">India Network</h3>
+                <h3 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-white">India</h3>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
