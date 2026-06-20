@@ -60,23 +60,26 @@ export default function Hero() {
             <span className="hero-glint-line inline-block text-[0.82em] text-accent md:whitespace-nowrap" data-text="Brands Into Movements">Brands Into Movements</span>
           </motion.h1>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 lg:gap-12">
-            <div className="max-w-3xl">
+          <motion.div
+            variants={itemVariants}
+            className="hero-proof-panel flex flex-col gap-8 md:flex-row md:items-end md:justify-between lg:gap-12"
+          >
+            <div className="max-w-3xl border-l border-accent/55 pl-5 md:pl-7">
               <motion.p 
                 variants={itemVariants}
-                className="text-base md:text-xl lg:text-[1.35rem] text-white/78 leading-relaxed font-light tracking-wide"
+                className="hero-support-copy text-base md:text-xl lg:text-[1.32rem] text-white/82 leading-relaxed font-light tracking-wide"
               >
                 For over a decade, Grey Promos has turned campaigns, events, retail branding, outdoor activations, digital media, and technology-led ideas into seamless real-world brand experiences.
               </motion.p>
 
               <motion.div
                 variants={itemVariants}
-                className="mt-6 flex flex-wrap gap-2.5 md:gap-3"
+                className="mt-7 flex flex-wrap gap-x-5 gap-y-3 md:gap-x-7"
               >
                 {proofPoints.map((point) => (
                   <span
                     key={point}
-                    className="rounded-full border border-white/10 bg-white/[0.025] px-3.5 py-2 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.16em] text-white/65 backdrop-blur-sm"
+                    className="hero-proof-chip text-[10px] font-bold uppercase tracking-[0.18em] text-white/62 md:text-[11px]"
                   >
                     {point}
                   </span>
@@ -88,14 +91,16 @@ export default function Hero() {
               <MagneticButton>
                 <Link 
                   href="/work" 
-                  className="group flex items-center gap-3 bg-white text-black px-8 py-4 md:px-10 md:py-5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-xl shadow-white/10"
+                  className="hero-work-cta group flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 font-bold text-black shadow-xl shadow-white/10 transition-all hover:scale-105 active:scale-95 md:px-10 md:py-5"
                 >
                   Explore Work
-                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white transition-colors group-hover:bg-accent">
+                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  </span>
                 </Link>
               </MagneticButton>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 

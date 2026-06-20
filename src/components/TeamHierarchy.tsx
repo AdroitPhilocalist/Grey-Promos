@@ -7,6 +7,7 @@ import {
   BarChart3,
   BriefcaseBusiness,
   ClipboardCheck,
+  Headset,
   MonitorCog,
   Palette,
   Radio,
@@ -70,6 +71,17 @@ const crewMembers: CrewMember[] = [
     props: ["Deal radar", "Proposal wings", "Always ringing"],
     accent: "from-amber-300/30 via-white/10 to-orange-400/20",
     icon: BriefcaseBusiness,
+  },
+  {
+    name: "Taniya Maity",
+    role: "Client Service",
+    image: "/images/Taniya-Maiti.png",
+    line: "Turns client pings, approvals, and tiny panics into calm updates.",
+    story:
+      "The client-side bridge keeping briefs, feedback, calls, and campaign expectations moving with charm and control.",
+    props: ["Client call mode", "Approval chase", "Brief keeper"],
+    accent: "from-cyan-300/25 via-white/10 to-blue-400/20",
+    icon: Headset,
   },
   {
     name: "Rakesh Singh",

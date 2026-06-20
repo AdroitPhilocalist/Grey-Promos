@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageTransition from "@/components/PageTransition";
 import PolkaBackdrop from "@/components/PolkaBackdrop";
+import ThemeBulbToggle from "@/components/ThemeBulbToggle";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,15 +30,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("grey-promos-theme");if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.dataset.theme="light";}else{document.documentElement.classList.add("dark");document.documentElement.dataset.theme="dark";}}catch(e){}`,
+          }}
+        />
+      </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <div className="noise-overlay" />
         <SmoothScroll>
           <div className="relative isolate">
             <PolkaBackdrop />
             <Navbar />
+            <ThemeBulbToggle />
             <main className="relative z-10 min-h-screen">
               <PageTransition>
                 {children}
