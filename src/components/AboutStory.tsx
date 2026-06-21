@@ -7,17 +7,17 @@ const milestones = [
   {
     year: "2015",
     title: "The Genesis",
-    description: "Founded with a mission to redefine brand activations through raw passion.",
+    description: "Born with one belief: great ideas deserve flawless execution.",
   },
   {
     year: "2018",
     title: "Scaling Heights",
-    description: "Expanded reach across major Indian zones with national retail branding.",
+    description: "From regional rollouts to national campaigns, every touchpoint began to count.",
   },
   {
     year: "2021",
     title: "Physical Fusion",
-    description: "Pioneered integrated experiences combining on-ground and digital strategy.",
+    description: "We connected on-ground experiences with digital thinking to keep brands in motion.",
   },
   {
     year: "Today",

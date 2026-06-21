@@ -2,88 +2,111 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Pencil, Lightbulb, Hammer, CheckCircle } from "lucide-react";
+import { CheckCircle2, Hammer, Lightbulb, Pencil } from "lucide-react";
 
 const steps = [
   {
-    title: "Design",
-    text: "We translate your vision into creative concepts, campaign ideas, layouts, branding directions, and visual experiences.",
+    number: "01",
+    label: "The Brief",
+    title: "Design the direction.",
+    text: "We turn the opportunity into a clear creative route, with a campaign idea that gives every next decision purpose.",
+    handoff: "Concept to strategy",
     icon: Pencil,
+    accent: "#ff6a3d",
   },
   {
-    title: "Plan",
-    text: "We map the strategy, logistics, manpower, materials, production timeline, and execution flow before work begins.",
+    number: "02",
+    label: "The Blueprint",
+    title: "Plan every move.",
+    text: "Timelines, teams, permissions, material, and logistics are aligned before the work reaches the ground.",
+    handoff: "Strategy to structure",
     icon: Lightbulb,
+    accent: "#f1b34b",
   },
   {
-    title: "Create",
-    text: "We fabricate, print, build, produce, and prepare every brand asset with precision and attention to detail.",
+    number: "03",
+    label: "The Build",
+    title: "Make it tangible.",
+    text: "Ideas become objects, spaces, screens, and campaign assets through precise fabrication and production.",
+    handoff: "Structure to reality",
     icon: Hammer,
+    accent: "#54c2bc",
   },
   {
-    title: "Install",
-    text: "We complete the journey with professional on-ground installation, activation, supervision, and final delivery.",
-    icon: CheckCircle,
+    number: "04",
+    label: "The Moment",
+    title: "Bring it to life.",
+    text: "The final experience is installed, supervised, and delivered with the discipline a live brand moment demands.",
+    handoff: "Reality to impact",
+    icon: CheckCircle2,
+    accent: "#8098ff",
   },
 ];
 
 export default function Process() {
   return (
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+    <section className="relative overflow-hidden py-24 md:py-32">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
       <div className="polka-section-accent" />
-      
-      <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-accent text-[10px] uppercase tracking-[0.3em] font-bold mb-6"
-          >
-            The Methodology
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-display font-bold mb-8 leading-[1.1] tracking-tight"
-          >
-            From Vision to <br /> <span className="text-gradient">Flawless Execution</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted text-lg md:text-xl font-light tracking-wide leading-relaxed"
-          >
-            A seamless process designed for brands that demand creativity, speed, and precision.
+
+      <div className="container-custom relative">
+        <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-end">
+          <div>
+            <motion.p initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
+              How the work moves
+            </motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }} className="max-w-4xl text-5xl font-display font-bold leading-[0.96] tracking-tight md:text-7xl">
+              From Vision to <span className="text-gradient">Flawless Execution</span>
+            </motion.h2>
+          </div>
+          <motion.p initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="max-w-xl text-base font-light leading-relaxed tracking-wide text-muted md:justify-self-end md:text-lg">
+            Not a handoff between departments. One connected Grey Promos workflow, carried from the first brief to the live brand moment.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, idx) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass-card p-12 hover:bg-white/[0.03] transition-all duration-500 group relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-6 text-7xl font-display font-black text-white/[0.02] group-hover:text-accent/[0.08] transition-all duration-700">
-                0{idx + 1}
-              </div>
-              <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-accent mb-10 group-hover:scale-110 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-500 shadow-xl">
-                <step.icon size={28} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-2xl font-display font-bold mb-5 tracking-tight group-hover:text-accent transition-colors duration-300">{step.title}</h3>
-              <p className="text-muted text-sm md:text-base font-light tracking-wide leading-relaxed">{step.text}</p>
-            </motion.div>
-          ))}
+        <div className="relative mt-16 border-y border-white/[0.08] py-2 md:mt-20 md:py-0">
+          <div className="process-flow-track" aria-hidden="true"><span className="process-flow-beam" /></div>
+
+          <div className="relative grid md:grid-cols-4 md:gap-7 lg:gap-10">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <motion.article
+                  key={step.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative min-h-[220px] border-b border-white/[0.08] py-8 pl-[4.5rem] last:border-b-0 md:min-h-[390px] md:border-b-0 md:pb-8 md:pl-0 md:pt-20"
+                >
+                  <div className="absolute left-0 top-8 grid h-10 w-10 place-items-center rounded-full border border-white/[0.16] bg-[var(--background)] transition-all duration-500 md:top-0" style={{ color: step.accent, boxShadow: `0 0 0 5px var(--background), 0 0 24px ${step.accent}22` }}>
+                    <Icon size={18} strokeWidth={1.7} />
+                  </div>
+
+                  <div className="absolute -right-2 top-5 font-display text-7xl font-bold leading-none opacity-[0.06] md:right-0 md:top-16 md:text-8xl" style={{ color: step.accent }}>
+                    {step.number}
+                  </div>
+
+                  <div className="relative">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.22em]" style={{ color: step.accent }}>{step.label}</p>
+                    <h3 className="mt-3 max-w-[13rem] text-3xl font-display font-bold leading-[1.02] tracking-tight text-white md:text-4xl">{step.title}</h3>
+                    <p className="mt-5 max-w-[16rem] text-sm font-light leading-relaxed tracking-wide text-muted">{step.text}</p>
+                  </div>
+
+                  <div className="relative mt-6 inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.16em] text-white/42 md:absolute md:bottom-8 md:left-0">
+                    <span className="h-px w-6" style={{ background: step.accent }} />
+                    {step.handoff}
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
         </div>
+
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.35 }} className="mt-5 flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.2em] text-muted/70">
+          <span>One continuous process</span>
+          <span className="text-white/40">One accountable partner</span>
+        </motion.div>
       </div>
     </section>
   );

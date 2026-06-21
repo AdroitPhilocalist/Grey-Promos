@@ -251,6 +251,35 @@ body {
     background: radial-gradient(circle, rgba(88, 69, 43, 0.11), transparent 66%);
   }
 
+  .career-input {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    background: transparent;
+    padding: 0.65rem 0.05rem;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 1rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 200ms ease;
+  }
+
+  .career-input:focus {
+    border-color: var(--accent-color);
+  }
+
+  .career-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .career-select {
+    cursor: pointer;
+  }
+
+  .career-select option {
+    background: #15120f;
+    color: #fff;
+  }
+
   .theme-sun-icon,
   .theme-owl-icon {
     position: relative;
@@ -392,22 +421,37 @@ body {
     filter: drop-shadow(0 1px 0 rgba(47, 28, 14, 0.65));
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 767px) {
     .theme-toggle {
-      top: 14px;
-      right: 14px;
-      transform: scale(0.9) translateY(-6px);
+      top: 84px;
+      right: 12px;
+      z-index: 45;
+      transform: scale(0.88) translateY(-6px);
       transform-origin: top right;
     }
 
     .theme-toggle.is-ready {
-      transform: scale(0.9);
+      transform: scale(0.88);
     }
   }
 
   html.light body {
     background: var(--background) !important;
     color: var(--foreground) !important;
+  }
+
+  html.light .career-input {
+    border-color: rgba(21, 18, 15, 0.16);
+    color: #15120f;
+  }
+
+  html.light .career-input::placeholder {
+    color: rgba(21, 18, 15, 0.38);
+  }
+
+  html.light .career-select option {
+    background: #f7f2e8;
+    color: #15120f;
   }
 
   html.light .text-white,
@@ -877,6 +921,134 @@ html.light .signpost-theme-dark {
 
 html.light .signpost-theme-light {
   display: block;
+}
+
+.presence-map-ocean {
+  fill: rgba(255, 255, 255, 0.012);
+}
+
+.presence-map-country {
+  fill: rgba(255, 255, 255, 0.045);
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 0.7;
+}
+
+.presence-map-india {
+  fill: rgba(255, 74, 28, 0.2);
+  stroke: rgba(255, 130, 91, 0.8);
+  stroke-width: 1.1;
+}
+
+.presence-map-grid {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 0.65;
+}
+
+.process-flow-track {
+  position: absolute;
+  top: 2.25rem;
+  bottom: 2.25rem;
+  left: 1.25rem;
+  width: 1px;
+  overflow: hidden;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.18) 12%, rgba(255, 255, 255, 0.18) 88%, transparent);
+}
+
+.process-flow-beam {
+  position: absolute;
+  top: -30%;
+  left: -1px;
+  width: 3px;
+  height: 32%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, #ff6a3d 45%, #67e8f9, transparent);
+  box-shadow: 0 0 14px rgba(103, 232, 249, 0.8);
+  animation: processFlowBeamMobile 4.5s ease-in-out infinite;
+}
+
+@keyframes processFlowBeamMobile {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(420%); }
+}
+
+@media (min-width: 768px) {
+  .process-flow-track {
+    top: 1.25rem;
+    right: 1.25rem;
+    bottom: auto;
+    left: 1.25rem;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16) 12%, rgba(255, 255, 255, 0.16) 88%, transparent);
+  }
+
+  .process-flow-beam {
+    top: -1px;
+    left: -30%;
+    width: 32%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ff6a3d 45%, #67e8f9, transparent);
+    animation-name: processFlowBeamDesktop;
+  }
+
+  @keyframes processFlowBeamDesktop {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(420%); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-flow-beam {
+    animation: none;
+  }
+}
+
+.presence-map-office,
+.presence-map-zone {
+  stroke-width: 2;
+}
+
+.presence-map-office {
+  fill: var(--accent-color);
+  stroke: rgba(255, 255, 255, 0.9);
+}
+
+.presence-map-zone {
+  fill: #67e8f9;
+  stroke: rgba(8, 47, 73, 0.95);
+}
+
+.presence-map-office-pulse {
+  fill: rgba(255, 74, 28, 0.12);
+  stroke: rgba(255, 112, 76, 0.84);
+  stroke-width: 1;
+  animation: presenceMapPulse 2.2s ease-out infinite;
+}
+
+.presence-map-zone-pulse {
+  fill: rgba(103, 232, 249, 0.1);
+  stroke: rgba(103, 232, 249, 0.9);
+  stroke-width: 1;
+  animation: presenceMapPulse 2.2s ease-out infinite;
+}
+
+@keyframes presenceMapPulse {
+  0%, 100% { opacity: 0.28; transform: scale(0.65); transform-origin: center; }
+  50% { opacity: 0.96; transform: scale(1.08); transform-origin: center; }
+}
+
+html.light .presence-map-ocean {
+  fill: rgba(21, 18, 15, 0.025);
+}
+
+html.light .presence-map-country {
+  fill: rgba(21, 18, 15, 0.055);
+  stroke: rgba(21, 18, 15, 0.2);
+}
+
+html.light .presence-map-grid {
+  stroke: rgba(21, 18, 15, 0.12);
 }
 
 /* Custom Scrollbar */

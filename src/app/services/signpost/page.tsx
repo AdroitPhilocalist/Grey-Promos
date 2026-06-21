@@ -1,12 +1,5 @@
-import React from "react";
-import ServiceSignpostShowcase from "@/components/ServiceSignpostShowcase";
-import ContactCTA from "@/components/ContactCTA";
+import { redirect } from "next/navigation";
 
 export default function ServiceSignpostPage() {
-  return (
-    <>
-      <ServiceSignpostShowcase />
-      <ContactCTA />
-    </>
-  );
+  redirect("/services");
 }
