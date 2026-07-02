@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, Play, Plus, X } from "lucide-react";
+import { ArrowRight, Check, ChevronLeft, ChevronRight, Play, Plus, X, ZoomIn } from "lucide-react";
 import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,11 @@ interface ServicesProps {
 type ServiceMedia = {
   video: string;
   images?: string[];
+};
+
+type ActiveServicePhoto = {
+  images: string[];
+  imageIndex: number;
 };
 
 const eventImages = [
@@ -87,36 +92,26 @@ const categoryPalette: Record<string, { line: string; wash: string; icon: string
     wash: "radial-gradient(circle at 8% 4%, rgba(212, 93, 236, 0.20), transparent 43%)",
     icon: "rgba(212, 93, 236, 0.12)",
   },
-  Promotions: {
+  Activations: {
     line: "#27b8c9",
     wash: "radial-gradient(circle at 8% 4%, rgba(39, 184, 201, 0.20), transparent 43%)",
     icon: "rgba(39, 184, 201, 0.12)",
   },
-  Fabrication: {
+  Exhibitions: {
     line: "#f5af39",
     wash: "radial-gradient(circle at 8% 4%, rgba(245, 175, 57, 0.20), transparent 43%)",
     icon: "rgba(245, 175, 57, 0.12)",
   },
-  Outdoor: {
-    line: "#5b91ff",
-    wash: "radial-gradient(circle at 8% 4%, rgba(91, 145, 255, 0.22), transparent 43%)",
-    icon: "rgba(91, 145, 255, 0.13)",
-  },
-  Management: {
-    line: "#71bd82",
-    wash: "radial-gradient(circle at 8% 4%, rgba(113, 189, 130, 0.20), transparent 43%)",
-    icon: "rgba(113, 189, 130, 0.12)",
-  },
-  Production: {
-    line: "#9d7ced",
-    wash: "radial-gradient(circle at 8% 4%, rgba(157, 124, 237, 0.22), transparent 43%)",
-    icon: "rgba(157, 124, 237, 0.13)",
-  },
 };
+
+const serviceCategories = ["All", "Events", "Branding", "Activations", "Exhibitions"];
 
 export default function Services({ limit, showFilters = true }: ServicesProps) {
   const visibleServices = limit ? services.slice(0, limit) : services;
-  const categories = useMemo(() => ["All", ...Array.from(new Set(visibleServices.map((service) => service.category)))], [visibleServices]);
+  const categories = useMemo(
+    () => serviceCategories.filter((category) => category === "All" || visibleServices.some((service) => service.category === category)),
+    [visibleServices]
+  );
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeService, setActiveService] = useState<ServiceItem | null>(null);
 
@@ -129,13 +124,8 @@ export default function Services({ limit, showFilters = true }: ServicesProps) {
     if (!activeService) return;
 
     document.documentElement.classList.add("modal-open");
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActiveService(null);
-    };
-    window.addEventListener("keydown", onKeyDown);
     return () => {
       document.documentElement.classList.remove("modal-open");
-      window.removeEventListener("keydown", onKeyDown);
     };
   }, [activeService]);
 
@@ -255,10 +245,152 @@ export default function Services({ limit, showFilters = true }: ServicesProps) {
 function ServiceDialog({ service, onClose }: { service: ServiceItem; onClose: () => void }) {
   const Icon = service.icon;
   const media = serviceMedia[service.slug];
+  const [activePhoto, setActivePhoto] = useState<ActiveServicePhoto | null>(null);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (activePhoto) {
+          setActivePhoto(null);
+        } else {
+          onClose();
+        }
+      }
+      if (event.key === "ArrowRight" && activePhoto) {
+        setActivePhoto((current) => current && ({
+          ...current,
+          imageIndex: (current.imageIndex + 1) % current.images.length,
+        }));
+      }
+      if (event.key === "ArrowLeft" && activePhoto) {
+        setActivePhoto((current) => current && ({
+          ...current,
+          imageIndex: (current.imageIndex - 1 + current.images.length) % current.images.length,
+        }));
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activePhoto, onClose]);
+
+  return (
+    <>
+      <motion.div
+        className="fixed inset-0 z-[120] flex items-end justify-center bg-black/70 p-3 pt-20 backdrop-blur-md md:items-center md:p-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) onClose();
+        }}
+      >
+        <motion.article
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="service-dialog-title"
+          data-lenis-prevent
+          initial={{ opacity: 0, y: 26, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.985 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-h-[calc(100dvh-6rem)] w-full max-w-5xl touch-pan-y overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/[0.12] bg-[var(--background)] shadow-2xl shadow-black/60"
+        >
+          <button type="button" onClick={onClose} className="absolute right-5 top-5 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-black/35 text-white/80 backdrop-blur-md transition-colors hover:border-accent hover:bg-accent hover:text-white" aria-label="Close service details">
+            <X size={18} />
+          </button>
+
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="flex min-h-[260px] flex-col overflow-hidden bg-black lg:min-h-full">
+              <div className={cn("relative overflow-hidden", media.images ? "aspect-video" : "min-h-[260px] flex-1")}>
+                <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" src={media.video} />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                <span className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full border border-white/30 bg-black/20 text-white/90 backdrop-blur-md" aria-label="Service video"><Play size={14} fill="currentColor" /></span>
+              </div>
+
+              {media.images && (
+                <div className="grid grid-cols-3 gap-2 border-t border-white/[0.1] bg-black p-2.5">
+                  {media.images.map((image, index) => (
+                    <button
+                      key={image}
+                      type="button"
+                      onClick={() => setActivePhoto({ images: media.images ?? [], imageIndex: index })}
+                      className="group relative aspect-[4/3] overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.04] outline-none transition-colors focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/40"
+                      aria-label={`View ${service.title} project photo ${index + 1}`}
+                    >
+                      <Image src={image} alt={`${service.title} real project frame ${index + 1}`} fill sizes="(max-width: 1024px) 33vw, 18vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <span className="absolute bottom-2 right-2 grid h-7 w-7 translate-y-1 place-items-center rounded-full border border-white/25 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                        <ZoomIn size={13} />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 sm:p-9 md:p-11">
+              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent">{service.category}</p>
+              <h2 id="service-dialog-title" className="mt-4 text-4xl font-display font-bold leading-[1.02] tracking-tight text-white md:text-5xl">{service.title}</h2>
+              <p className="mt-5 text-lg font-light leading-relaxed text-white/80">{service.tagline}</p>
+              <p className="mt-5 text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">{service.description}</p>
+
+              <div className="mt-8 border-t border-white/[0.08] pt-6">
+                <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-muted">What&apos;s included</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {service.deliverables.map((item) => (
+                    <div key={item} className="flex items-center gap-3 border-b border-white/[0.08] py-3 text-sm text-white/80">
+                      <span className="grid h-5 w-5 place-items-center rounded-full bg-accent/15 text-accent"><Check size={12} strokeWidth={2.5} /></span>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Link href="/contact" onClick={onClose} className="mt-9 inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-6 py-4 text-sm font-bold text-black transition-colors hover:bg-accent hover:text-white">
+                Discuss this service <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </motion.article>
+      </motion.div>
+
+      <AnimatePresence>
+        {activePhoto && (
+          <ServicePhotoLightbox
+            title={service.title}
+            category={service.category}
+            activePhoto={activePhoto}
+            onClose={() => setActivePhoto(null)}
+            onNext={() => setActivePhoto((current) => current && ({ ...current, imageIndex: (current.imageIndex + 1) % current.images.length }))}
+            onPrevious={() => setActivePhoto((current) => current && ({ ...current, imageIndex: (current.imageIndex - 1 + current.images.length) % current.images.length }))}
+          />
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+function ServicePhotoLightbox({
+  title,
+  category,
+  activePhoto,
+  onClose,
+  onNext,
+  onPrevious,
+}: {
+  title: string;
+  category: string;
+  activePhoto: ActiveServicePhoto;
+  onClose: () => void;
+  onNext: () => void;
+  onPrevious: () => void;
+}) {
+  const image = activePhoto.images[activePhoto.imageIndex];
 
   return (
     <motion.div
-      className="fixed inset-0 z-[120] flex items-end justify-center bg-black/70 p-3 pt-20 backdrop-blur-md md:items-center md:p-10"
+      className="fixed inset-0 z-[130] flex items-center justify-center bg-black/84 p-3 backdrop-blur-xl md:p-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -266,64 +398,54 @@ function ServiceDialog({ service, onClose }: { service: ServiceItem; onClose: ()
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <motion.article
+      <motion.div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="service-dialog-title"
+        aria-label={`${title} image viewer`}
         data-lenis-prevent
-        initial={{ opacity: 0, y: 26, scale: 0.985 }}
+        initial={{ opacity: 0, y: 22, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 20, scale: 0.985 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="relative max-h-[calc(100dvh-6rem)] w-full max-w-5xl touch-pan-y overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/[0.12] bg-[var(--background)] shadow-2xl shadow-black/60"
+        exit={{ opacity: 0, y: 18, scale: 0.985 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex h-[86dvh] w-full max-w-4xl flex-col overflow-hidden rounded-[1.35rem] border border-white/[0.14] bg-[#050505] shadow-2xl shadow-black/70"
       >
-        <button type="button" onClick={onClose} className="absolute right-5 top-5 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-black/35 text-white/80 backdrop-blur-md transition-colors hover:border-accent hover:bg-accent hover:text-white" aria-label="Close service details">
-          <X size={18} />
-        </button>
-
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="flex min-h-[260px] flex-col overflow-hidden bg-black lg:min-h-full">
-            <div className={cn("relative overflow-hidden", media.images ? "aspect-video" : "min-h-[260px] flex-1")}>
-              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" src={media.video} />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-              <span className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full border border-white/30 bg-black/20 text-white/90 backdrop-blur-md" aria-label="Service video"><Play size={14} fill="currentColor" /></span>
-            </div>
-
-            {media.images && (
-              <div className="grid grid-cols-3 gap-2 border-t border-white/[0.1] bg-black p-2.5">
-                {media.images.map((image, index) => (
-                  <figure key={image} className="relative aspect-[4/3] overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.04]">
-                    <Image src={image} alt={`${service.title} real project frame ${index + 1}`} fill sizes="(max-width: 1024px) 33vw, 18vw" className="object-cover" />
-                  </figure>
-                ))}
-              </div>
-            )}
+        <div className="flex items-center justify-between gap-3 border-b border-white/[0.1] px-4 py-3 md:px-5">
+          <div className="min-w-0">
+            <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-accent">{category}</p>
+            <p className="mt-1 truncate text-sm text-white/72">{title}</p>
           </div>
-
-          <div className="p-6 sm:p-9 md:p-11">
-            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent">{service.category}</p>
-            <h2 id="service-dialog-title" className="mt-4 text-4xl font-display font-bold leading-[1.02] tracking-tight text-white md:text-5xl">{service.title}</h2>
-            <p className="mt-5 text-lg font-light leading-relaxed text-white/80">{service.tagline}</p>
-            <p className="mt-5 text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">{service.description}</p>
-
-            <div className="mt-8 border-t border-white/[0.08] pt-6">
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-muted">What&apos;s included</p>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {service.deliverables.map((item) => (
-                  <div key={item} className="flex items-center gap-3 border-b border-white/[0.08] py-3 text-sm text-white/80">
-                    <span className="grid h-5 w-5 place-items-center rounded-full bg-accent/15 text-accent"><Check size={12} strokeWidth={2.5} /></span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <Link href="/contact" onClick={onClose} className="mt-9 inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-6 py-4 text-sm font-bold text-black transition-colors hover:bg-accent hover:text-white">
-              Discuss this service <ArrowRight size={16} />
-            </Link>
-          </div>
+          <button type="button" onClick={onClose} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.04] text-white transition-colors hover:border-accent hover:bg-accent" aria-label="Close image viewer">
+            <X size={18} />
+          </button>
         </div>
-      </motion.article>
+
+        <div className="relative min-h-0 flex-1">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={image}
+              initial={{ opacity: 0, scale: 0.985 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.01 }}
+              transition={{ duration: 0.22 }}
+              className="absolute inset-0"
+            >
+              <Image src={image} alt={`Expanded ${title} project photo ${activePhoto.imageIndex + 1}`} fill sizes="100vw" className="object-contain p-2 md:p-6" priority />
+            </motion.div>
+          </AnimatePresence>
+
+          <button type="button" onClick={onPrevious} className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-black/35 text-white backdrop-blur-md transition-colors hover:border-accent hover:bg-accent md:left-5 md:h-12 md:w-12" aria-label="Previous image">
+            <ChevronLeft size={22} />
+          </button>
+          <button type="button" onClick={onNext} className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-black/35 text-white backdrop-blur-md transition-colors hover:border-accent hover:bg-accent md:right-5 md:h-12 md:w-12" aria-label="Next image">
+            <ChevronRight size={22} />
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/[0.1] px-4 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-white/55 md:px-5">
+          <span>Project capture</span>
+          <span>{activePhoto.imageIndex + 1} / {activePhoto.images.length}</span>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

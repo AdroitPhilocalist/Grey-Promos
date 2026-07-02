@@ -26,11 +26,11 @@ export default function AboutTeamReveal() {
                 <Sparkles size={13} strokeWidth={1.8} />
                 The People Behind the Work
               </div>
-              <h2 className="text-3xl font-display font-bold leading-tight tracking-tight text-white md:text-5xl">
-                Meet the crew behind the beautiful chaos.
+              <h2 className="text-3xl font-display font-bold leading-tight tracking-tight text-[var(--foreground)] md:text-5xl">
+                Meet the people behind the momentum.
               </h2>
               <p className="mt-5 max-w-2xl text-base font-light leading-relaxed tracking-wide text-muted md:text-lg">
-                A playful portrait gallery of the people who keep designs, reports, deals, and on-ground execution moving with precision, pressure, and personality.
+                An official view of Grey Promos&apos; leadership and execution teams, organized by responsibility across direction, client relationships, operations, MIS, and design.
               </p>
             </div>
 

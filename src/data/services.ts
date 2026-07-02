@@ -41,7 +41,7 @@ export const services = [
     description: "Concept, fabrication, branding, lighting, counters, panels, and installation for customized exhibition stalls built for high-impact brand presence.",
     deliverables: ["Booth design", "Fabrication", "Installation", "Lighting & panels"],
     icon: Hammer,
-    category: "Fabrication"
+    category: "Exhibitions"
   },
   {
     slug: "mall-setup-activation",
@@ -50,7 +50,7 @@ export const services = [
     description: "Mall kiosks, demo counters, activation zones, production setups, and campaign staffing designed to attract, engage, and convert shoppers.",
     deliverables: ["Mall kiosks", "Demo counters", "Activation zones", "Production setup"],
     icon: ShoppingBag,
-    category: "Promotions"
+    category: "Activations"
   },
   {
     slug: "modern-trade-promotions",
@@ -59,7 +59,7 @@ export const services = [
     description: "Promotional visibility, display branding, sampling, store-level campaign execution, and customer engagement programs for supermarkets and modern retail chains.",
     deliverables: ["Sampling plans", "Display branding", "Promoter support", "Retail reporting"],
     icon: TrendingUp,
-    category: "Promotions"
+    category: "Activations"
   },
   {
     slug: "promotions-activities",
@@ -68,7 +68,7 @@ export const services = [
     description: "BTL promotional activities, field campaigns, brand engagement drives, sampling programs, and ground-level awareness initiatives managed with creative and operational discipline.",
     deliverables: ["BTL campaigns", "Sampling", "Promoter kits", "Field execution"],
     icon: Sparkles,
-    category: "Promotions"
+    category: "Activations"
   },
   {
     slug: "road-shows",
@@ -77,7 +77,7 @@ export const services = [
     description: "Mobile roadshow planning and execution with routes, permissions, branded setups, promoters, logistics, and live campaign coordination.",
     deliverables: ["Route planning", "Branded setup", "Permissions", "On-ground crew"],
     icon: Map,
-    category: "Promotions"
+    category: "Activations"
   },
   {
     slug: "mobile-led-van-advertising",
@@ -86,7 +86,7 @@ export const services = [
     description: "Customized mobile van and LED van campaigns with branding, screen content, route coverage, amplification, and audience engagement support.",
     deliverables: ["LED van setup", "Vehicle branding", "Route coverage", "Campaign support"],
     icon: Truck,
-    category: "Outdoor"
+    category: "Activations"
   },
   {
     slug: "payroll-manpower",
@@ -95,7 +95,7 @@ export const services = [
     description: "Managed manpower support for promotions, activations, retail campaigns, events, and field operations with payroll, deployment, supervision, and reporting.",
     deliverables: ["Manpower supply", "Payroll handling", "Supervision", "Deployment reports"],
     icon: Briefcase,
-    category: "Management"
+    category: "Activations"
   },
   {
     slug: "product-launching",
@@ -113,7 +113,7 @@ export const services = [
     description: "Professional AV setup for events and activations, including LED screens, speakers, microphones, control systems, lighting, and show-flow technical support.",
     deliverables: ["LED screens", "Sound systems", "Lighting", "Technical control"],
     icon: Video,
-    category: "Production"
+    category: "Events"
   },
   {
     slug: "printing-flex-branding",
@@ -122,7 +122,7 @@ export const services = [
     description: "Print production across flex, solvent, eco-vinyl, banners, backdrops, retail graphics, outdoor branding, and campaign-ready materials.",
     deliverables: ["Flex printing", "Vinyl graphics", "Banners", "Campaign materials"],
     icon: Printer,
-    category: "Fabrication"
+    category: "Branding"
   },
   {
     slug: "retail-activations",
@@ -131,7 +131,7 @@ export const services = [
     description: "Retail activation programs with product demos, sampling, promoter engagement, counters, customer interaction, and campaign reporting.",
     deliverables: ["Product demos", "Sampling counters", "Promoter teams", "Engagement reports"],
     icon: Sparkles,
-    category: "Promotions"
+    category: "Activations"
   },
   {
     slug: "store-decoration-interiors",

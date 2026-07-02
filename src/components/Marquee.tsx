@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, X, ZoomIn } from "lucide-react";
 
 const workStories = [
   {
@@ -54,8 +54,40 @@ const workStories = [
 ];
 
 type WorkStoryData = (typeof workStories)[number];
+type ActivePhoto = {
+  story: WorkStoryData;
+  imageIndex: number;
+};
 
 export default function Marquee() {
+  const [activePhoto, setActivePhoto] = useState<ActivePhoto | null>(null);
+
+  useEffect(() => {
+    if (!activePhoto) return;
+
+    document.documentElement.classList.add("modal-open");
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActivePhoto(null);
+      if (event.key === "ArrowRight") {
+        setActivePhoto((current) => current && ({
+          ...current,
+          imageIndex: (current.imageIndex + 1) % current.story.images.length,
+        }));
+      }
+      if (event.key === "ArrowLeft") {
+        setActivePhoto((current) => current && ({
+          ...current,
+          imageIndex: (current.imageIndex - 1 + current.story.images.length) % current.story.images.length,
+        }));
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.documentElement.classList.remove("modal-open");
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [activePhoto]);
+
   return (
     <section className="relative overflow-hidden py-24 md:py-32">
       <div className="polka-section-accent" />
@@ -77,14 +109,25 @@ export default function Marquee() {
         </div>
 
         <div className="mt-10 space-y-14 md:mt-14 md:space-y-20">
-          {workStories.map((story, index) => <WorkStory key={story.title} story={story} index={index} />)}
+          {workStories.map((story, index) => <WorkStory key={story.title} story={story} index={index} onPhotoOpen={(imageIndex) => setActivePhoto({ story, imageIndex })} />)}
         </div>
       </div>
+
+      <AnimatePresence>
+        {activePhoto && (
+          <PhotoLightbox
+            activePhoto={activePhoto}
+            onClose={() => setActivePhoto(null)}
+            onNext={() => setActivePhoto((current) => current && ({ ...current, imageIndex: (current.imageIndex + 1) % current.story.images.length }))}
+            onPrevious={() => setActivePhoto((current) => current && ({ ...current, imageIndex: (current.imageIndex - 1 + current.story.images.length) % current.story.images.length }))}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
 
-function WorkStory({ story, index }: { story: WorkStoryData; index: number }) {
+function WorkStory({ story, index, onPhotoOpen }: { story: WorkStoryData; index: number; onPhotoOpen: (imageIndex: number) => void }) {
   const { ref, inView } = useInView({ rootMargin: "240px 0px", triggerOnce: false });
 
   return (
@@ -106,12 +149,91 @@ function WorkStory({ story, index }: { story: WorkStoryData; index: number }) {
 
         <div className="grid grid-cols-2 gap-3 lg:grid-rows-2 lg:gap-4 lg:[direction:ltr]">
           {story.images.map((image, imageIndex) => (
-            <motion.figure key={image} whileHover={{ y: -4 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-white/[0.1] bg-white/[0.03] lg:aspect-auto lg:min-h-0">
+            <motion.button key={image} type="button" onClick={() => onPhotoOpen(imageIndex)} whileHover={{ y: -4 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-white/[0.1] bg-white/[0.03] text-left outline-none transition-colors focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/40 lg:aspect-auto lg:min-h-0" aria-label={`View ${story.title} photo ${imageIndex + 1}`}>
               <Image src={image} alt={`Grey Promos ${story.title.toLowerCase()} work, frame ${imageIndex + 1}`} fill sizes="(max-width: 1024px) 50vw, 24vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-            </motion.figure>
+              <span className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="absolute bottom-3 right-3 grid h-9 w-9 translate-y-2 place-items-center rounded-full border border-white/25 bg-black/35 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <ZoomIn size={16} />
+              </span>
+            </motion.button>
           ))}
         </div>
       </div>
     </motion.article>
+  );
+}
+
+function PhotoLightbox({
+  activePhoto,
+  onClose,
+  onNext,
+  onPrevious,
+}: {
+  activePhoto: ActivePhoto;
+  onClose: () => void;
+  onNext: () => void;
+  onPrevious: () => void;
+}) {
+  const image = activePhoto.story.images[activePhoto.imageIndex];
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[130] flex items-center justify-center bg-black/82 p-3 backdrop-blur-xl md:p-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${activePhoto.story.title} image viewer`}
+        data-lenis-prevent
+        initial={{ opacity: 0, y: 24, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 18, scale: 0.985 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex h-[86dvh] w-full max-w-4xl flex-col overflow-hidden rounded-[1.35rem] border border-white/[0.14] bg-[#050505] shadow-2xl shadow-black/70"
+      >
+        <div className="flex items-center justify-between gap-3 border-b border-white/[0.1] px-4 py-3 md:px-5">
+          <div className="min-w-0">
+            <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-accent">{activePhoto.story.title}</p>
+            <p className="mt-1 truncate text-sm text-white/72">{activePhoto.story.label}</p>
+          </div>
+          <button type="button" onClick={onClose} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.04] text-white transition-colors hover:border-accent hover:bg-accent" aria-label="Close image viewer">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="relative min-h-0 flex-1">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={image}
+              initial={{ opacity: 0, scale: 0.985 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.01 }}
+              transition={{ duration: 0.22 }}
+              className="absolute inset-0"
+            >
+              <Image src={image} alt={`Expanded ${activePhoto.story.title} project photo ${activePhoto.imageIndex + 1}`} fill sizes="100vw" className="object-contain p-2 md:p-6" priority />
+            </motion.div>
+          </AnimatePresence>
+
+          <button type="button" onClick={onPrevious} className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-black/35 text-white backdrop-blur-md transition-colors hover:border-accent hover:bg-accent md:left-5 md:h-12 md:w-12" aria-label="Previous image">
+            <ChevronLeft size={22} />
+          </button>
+          <button type="button" onClick={onNext} className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-black/35 text-white backdrop-blur-md transition-colors hover:border-accent hover:bg-accent md:right-5 md:h-12 md:w-12" aria-label="Next image">
+            <ChevronRight size={22} />
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/[0.1] px-4 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-white/55 md:px-5">
+          <span>Selected capture</span>
+          <span>{activePhoto.imageIndex + 1} / {activePhoto.story.images.length}</span>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
