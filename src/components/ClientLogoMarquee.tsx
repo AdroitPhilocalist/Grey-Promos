@@ -4,37 +4,26 @@ import React from "react";
 import { motion } from "framer-motion";
 import { clients } from "@/data/clients";
 
-const marqueeRows = [
-  clients.slice(0, Math.ceil(clients.length / 2)),
-  clients.slice(Math.ceil(clients.length / 2)),
-];
-
 function ClientLogoTile({ client }: { client: string }) {
   return (
-    <div className="group mx-9 flex h-20 min-w-max items-center transition-all duration-500 hover:-translate-y-1 md:mx-14 md:h-24">
-      <span className="whitespace-nowrap font-display text-3xl font-bold tracking-tight text-white/22 transition-all duration-500 group-hover:text-white md:text-5xl">
+    <div className="client-marquee-tile group flex h-20 min-w-max items-center px-5 transition-all duration-500 hover:-translate-y-1 md:h-24 md:px-8">
+      <span className="client-marquee-name whitespace-nowrap text-3xl font-bold transition-all duration-500 md:text-5xl">
         {client}
       </span>
     </div>
   );
 }
 
-function ClientLogoMarqueeRow({
-  row,
-  reverse = false,
-}: {
-  row: string[];
-  reverse?: boolean;
-}) {
+function ClientLogoMarqueeRow({ row }: { row: string[] }) {
   return (
     <div className="flex overflow-hidden">
       {[...Array(2)].map((_, index) => (
         <motion.div
           key={index}
-          initial={{ x: reverse ? "-100%" : "0%" }}
-          animate={{ x: reverse ? "0%" : "-100%" }}
-          transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-          className="flex shrink-0 items-center py-2"
+          initial={{ x: "0%" }}
+          animate={{ x: "-100%" }}
+          transition={{ duration: 52, repeat: Infinity, ease: "linear" }}
+          className="flex shrink-0 items-center py-3"
         >
           {row.map((client) => (
             <ClientLogoTile key={`${client}-${index}`} client={client} />
@@ -87,8 +76,7 @@ export function ClientLogoRollingStrip() {
     <div className="relative">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-background to-transparent md:w-44" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-background to-transparent md:w-44" />
-      <ClientLogoMarqueeRow row={marqueeRows[0]} />
-      <ClientLogoMarqueeRow row={marqueeRows[1]} reverse />
+      <ClientLogoMarqueeRow row={clients} />
     </div>
   );
 }

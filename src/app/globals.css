@@ -87,6 +87,89 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/40;
   }
 
+  .client-marquee-tile {
+    position: relative;
+  }
+
+  .client-marquee-tile::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-left: 2.25rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, #ffffff 0%, #ffc7a5 30%, rgba(255, 74, 28, 0.85) 58%, transparent 72%);
+    box-shadow:
+      0 0 12px rgba(255, 112, 67, 0.5),
+      0 0 24px rgba(255, 255, 255, 0.12);
+    opacity: 0.72;
+    transform: translateY(1px);
+  }
+
+  html.light .client-marquee-tile::after {
+    background: radial-gradient(circle, #4b2a1d 0%, #b93212 48%, transparent 74%);
+    box-shadow: 0 0 14px rgba(185, 50, 18, 0.22);
+    opacity: 0.68;
+  }
+
+  .client-marquee-name {
+    font-family: var(--font-space-grotesk), var(--font-inter), sans-serif;
+    letter-spacing: 0.005em;
+    color: transparent;
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f6f8fb 22%, #b9c2d1 46%, #ffffff 72%, #8792a3 100%),
+      linear-gradient(105deg, transparent 0%, transparent 36%, rgba(255, 255, 255, 0.95) 48%, transparent 60%, transparent 100%);
+    background-size: 100% 100%, 260% 100%;
+    background-position: 0 0, 160% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-stroke: 0.35px rgba(255, 255, 255, 0.34);
+    opacity: 0.9;
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.36),
+      0 10px 30px rgba(255, 255, 255, 0.14),
+      0 0 1px rgba(255, 255, 255, 0.72),
+      0 0 28px rgba(255, 74, 28, 0.08);
+    font-feature-settings: "kern" 1, "ss01" 1;
+    animation: client-name-sheen 7.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  html.light .client-marquee-name {
+    background:
+      linear-gradient(180deg, #17130f 0%, #3b332d 38%, #9f2b0f 78%, #2b211b 100%),
+      linear-gradient(105deg, transparent 0%, transparent 38%, rgba(255, 255, 255, 0.72) 50%, transparent 62%, transparent 100%);
+    background-size: 100% 100%, 260% 100%;
+    background-position: 0 0, 160% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-stroke: 0.25px rgba(21, 18, 15, 0.24);
+    opacity: 0.84;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .group:hover .client-marquee-name {
+    opacity: 1;
+    filter: brightness(1.08);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.3),
+      0 18px 44px rgba(255, 255, 255, 0.22),
+      0 0 2px rgba(255, 255, 255, 0.7);
+  }
+
+  html.light .group:hover .client-marquee-name {
+    opacity: 1;
+    filter: brightness(0.86) saturate(1.08);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+  }
+
+  @keyframes client-name-sheen {
+    0%, 58% {
+      background-position: 0 0, 160% 0;
+    }
+    100% {
+      background-position: 0 0, -120% 0;
+    }
+  }
+
   .hero-glint-line {
     position: relative;
     display: inline-block;
