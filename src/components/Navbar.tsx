@@ -34,7 +34,7 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 w-full z-50 transition-all duration-500",
+        "site-navbar fixed top-0 left-0 w-full z-50 transition-all duration-500",
         isScrolled ? "pt-4" : "pt-8"
       )}
     >

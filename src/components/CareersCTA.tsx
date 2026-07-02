@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BriefcaseBusiness, Check, FileUp, Send, X } from "lucide-react";
 
@@ -21,6 +21,13 @@ export default function CareersCTA() {
   const [errorMessage, setErrorMessage] = useState("");
   const [resumeName, setResumeName] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.documentElement.classList.add("modal-open");
+    return () => document.documentElement.classList.remove("modal-open");
+  }, [isOpen]);
 
   const closeModal = () => {
     if (status !== "submitting") {

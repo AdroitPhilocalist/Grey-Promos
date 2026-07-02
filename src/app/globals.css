@@ -927,6 +927,13 @@ html.light .signpost-theme-light {
   fill: rgba(255, 255, 255, 0.012);
 }
 
+html.modal-open .site-navbar,
+html.modal-open .theme-toggle {
+  pointer-events: none;
+  opacity: 0 !important;
+  transform: translateY(-18px) !important;
+}
+
 .presence-map-country {
   fill: rgba(255, 255, 255, 0.045);
   stroke: rgba(255, 255, 255, 0.16);

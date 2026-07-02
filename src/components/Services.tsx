@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, Play, Plus, X } from "lucide-react";
 import { services } from "@/data/services";
@@ -14,22 +15,65 @@ interface ServicesProps {
   showFilters?: boolean;
 }
 
-const serviceMedia: Record<string, string> = {
-  "corporate-dealer-meets": "/videos/marquee/Corporate_event.mp4",
-  "retail-branding": "/videos/marquee/Retail-Branding.mp4",
-  "exhibition-stall-fabrication": "/videos/marquee/Exhibition.mp4",
-  "mall-setup-activation": "/videos/marquee/Brand-Activation.mp4",
-  "modern-trade-promotions": "/videos/marquee/Brand-Activation.mp4",
-  "promotions-activities": "/videos/marquee/Brand-Activation.mp4",
-  "road-shows": "/videos/marquee/Road-shows.mp4",
-  "mobile-led-van-advertising": "/videos/marquee/Led-Vans.mp4",
-  "payroll-manpower": "/videos/marquee/Live-event.mp4",
-  "product-launching": "/videos/marquee/Live-event.mp4",
-  "audio-visual-setup": "/videos/marquee/Live-event.mp4",
-  "printing-flex-branding": "/videos/marquee/Outdoor-Advertising.mp4",
-  "retail-activations": "/videos/marquee/Brand-Activation.mp4",
-  "store-decoration-interiors": "/videos/marquee/Store-Interior.mp4",
-  "creative-designing": "/videos/marquee/Retail-Branding.mp4",
+type ServiceMedia = {
+  video: string;
+  images?: string[];
+};
+
+const eventImages = [
+  "/images/Events/DSC_6195.JPG",
+  "/images/Events/DSC_6200.JPG",
+  "/images/Events/DSC_6212.JPG",
+  "/images/Events/DSC_6283.JPG",
+  "/images/Events/DSC_6318.JPG",
+  "/images/Events/RMP_5670.JPG",
+];
+
+const activationImages = [
+  "/images/Activation/WhatsApp%20Image%202021-03-11%20at%2015.54.24.jpeg",
+  "/images/Activation/WhatsApp%20Image%202021-04-02%20at%2012.15.18%20PM%20(1).jpeg",
+  "/images/Activation/WhatsApp%20Image%202022-10-10%20at%2012.04.28%20AM.jpeg",
+  "/images/Activation/WhatsApp%20Image%202023-07-20%20at%208.43.48%20PM.jpeg",
+  "/images/Activation/WhatsApp%20Image%202023-10-11%20at%202.51.49%20PM%20(1).jpeg",
+  "/images/Activation/WhatsApp%20Image%202026-03-28%20at%203.07.08%20PM.jpeg",
+];
+
+const brandingImages = [
+  "/images/Branding/WhatsApp%20Image%202021-08-27%20at%209.39.57%20PM.jpeg",
+  "/images/Branding/WhatsApp%20Image%202021-08-31%20at%204.15.27%20PM%20(1).jpeg",
+  "/images/Branding/WhatsApp%20Image%202021-08-31%20at%204.15.34%20PM.jpeg",
+  "/images/Branding/WhatsApp%20Image%202022-05-17%20at%2012.06.51%20PM%20(1).jpeg",
+  "/images/Branding/WhatsApp%20Image%202022-05-17%20at%2012.06.57%20PM%20(1).jpeg",
+  "/images/Branding/WhatsApp%20Image%202022-10-09%20at%2011.26.52%20PM%20(2).jpeg",
+];
+
+const exhibitionImages = [
+  "/images/Exhibition/DEB_3432.JPG",
+  "/images/Exhibition/DEB_3569.JPG",
+  "/images/Exhibition/DEB_3696.JPG",
+  "/images/Exhibition/DSC_0023.JPG",
+  "/images/Exhibition/WhatsApp%20Image%202022-05-17%20at%2011.44.24%20AM.jpeg",
+  "/images/Exhibition/WhatsApp%20Image%202026-06-20%20at%206.55.00%20PM.jpeg",
+];
+
+const selectImages = (images: string[], start = 0) => Array.from({ length: 3 }, (_, index) => images[(start + index) % images.length]);
+
+const serviceMedia: Record<string, ServiceMedia> = {
+  "corporate-dealer-meets": { video: "/videos/Event.mp4", images: selectImages(eventImages, 0) },
+  "retail-branding": { video: "/videos/Branding.mp4", images: selectImages(brandingImages, 0) },
+  "exhibition-stall-fabrication": { video: "/videos/Exhibition.mp4", images: selectImages(exhibitionImages, 0) },
+  "mall-setup-activation": { video: "/videos/Activation.mp4", images: selectImages(activationImages, 0) },
+  "modern-trade-promotions": { video: "/videos/Activation.mp4", images: selectImages(activationImages, 2) },
+  "promotions-activities": { video: "/videos/Activation.mp4", images: selectImages(activationImages, 3) },
+  "road-shows": { video: "/videos/marquee/Road-shows.mp4" },
+  "mobile-led-van-advertising": { video: "/videos/marquee/Led-Vans.mp4" },
+  "payroll-manpower": { video: "/videos/marquee/Live-event.mp4" },
+  "product-launching": { video: "/videos/Event.mp4", images: selectImages(eventImages, 2) },
+  "audio-visual-setup": { video: "/videos/Event.mp4", images: selectImages(eventImages, 3) },
+  "printing-flex-branding": { video: "/videos/Branding.mp4", images: selectImages(brandingImages, 2) },
+  "retail-activations": { video: "/videos/Activation.mp4", images: selectImages(activationImages, 1) },
+  "store-decoration-interiors": { video: "/videos/Branding.mp4", images: selectImages(brandingImages, 3) },
+  "creative-designing": { video: "/videos/marquee/Retail-Branding.mp4" },
 };
 
 const categoryPalette: Record<string, { line: string; wash: string; icon: string }> = {
@@ -84,11 +128,15 @@ export default function Services({ limit, showFilters = true }: ServicesProps) {
   useEffect(() => {
     if (!activeService) return;
 
+    document.documentElement.classList.add("modal-open");
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setActiveService(null);
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.documentElement.classList.remove("modal-open");
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [activeService]);
 
   return (
@@ -234,15 +282,22 @@ function ServiceDialog({ service, onClose }: { service: ServiceItem; onClose: ()
         </button>
 
         <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative min-h-[260px] overflow-hidden bg-black lg:min-h-full">
-            {media ? (
-              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline src={media} />
-            ) : null}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
-            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 text-white">
-              <span className="grid h-12 w-12 place-items-center rounded-full border border-white/25 bg-black/25 backdrop-blur-md"><Icon size={22} /></span>
-              <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/80"><Play size={12} fill="currentColor" /> A glimpse of our work</span>
+          <div className="flex min-h-[260px] flex-col overflow-hidden bg-black lg:min-h-full">
+            <div className={cn("relative overflow-hidden", media.images ? "aspect-video" : "min-h-[260px] flex-1")}>
+              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" src={media.video} />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+              <span className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full border border-white/30 bg-black/20 text-white/90 backdrop-blur-md" aria-label="Service video"><Play size={14} fill="currentColor" /></span>
             </div>
+
+            {media.images && (
+              <div className="grid grid-cols-3 gap-2 border-t border-white/[0.1] bg-black p-2.5">
+                {media.images.map((image, index) => (
+                  <figure key={image} className="relative aspect-[4/3] overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.04]">
+                    <Image src={image} alt={`${service.title} real project frame ${index + 1}`} fill sizes="(max-width: 1024px) 33vw, 18vw" className="object-cover" />
+                  </figure>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="p-6 sm:p-9 md:p-11">
