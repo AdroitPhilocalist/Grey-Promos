@@ -284,17 +284,14 @@ function MemberTile({ member, index, onSelect }: { member: TeamMember; index: nu
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: index * 0.035 }}
       onClick={onSelect}
-      className="group grid grid-cols-[4.75rem_1fr] items-center gap-3 rounded-2xl border border-white/[0.08] bg-black/15 p-2 text-left outline-none transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.04] focus-visible:ring-2 focus-visible:ring-accent/70"
+      className="group grid grid-cols-[5.5rem_1fr] items-center gap-4 rounded-2xl border border-white/[0.08] bg-black/15 p-3 text-left outline-none transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.04] focus-visible:ring-2 focus-visible:ring-accent/70"
     >
-      <div className="relative h-20 overflow-hidden rounded-xl bg-black">
-        <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="96px" className="object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+      <div className="relative h-24 overflow-hidden rounded-xl bg-black">
+        <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="112px" className="object-cover object-top transition-transform duration-500 group-hover:scale-105" />
       </div>
       <div className="min-w-0">
-        <p className="truncate text-base font-display font-bold tracking-tight text-[var(--foreground)]">{member.name}</p>
-        <p className="mt-1 line-clamp-2 text-xs font-medium leading-snug text-muted">{member.role}</p>
-        {member.tier === "lead" && (
-          <span className="mt-2 inline-flex rounded-full border border-accent/20 bg-accent/10 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.16em] text-accent">Lead</span>
-        )}
+        <p className="truncate text-lg font-display font-bold tracking-tight text-[var(--foreground)]">{member.name}</p>
+        <p className="mt-1 line-clamp-2 text-sm font-medium leading-snug text-muted">{member.role}</p>
       </div>
     </motion.button>
   );
@@ -323,7 +320,7 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 24 }}
         transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-        className="relative grid max-h-[88dvh] w-full max-w-4xl overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/[0.1] bg-[#070707] shadow-2xl shadow-black md:grid-cols-[0.9fr_1.1fr]"
+        className="relative grid max-h-[88dvh] w-full max-w-6xl overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/[0.1] bg-[#070707] shadow-2xl shadow-black md:grid-cols-[1.25fr_0.95fr]"
       >
         <button
           type="button"
@@ -334,8 +331,8 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
           <X size={18} />
         </button>
 
-        <div className="relative min-h-[360px] overflow-hidden bg-black md:min-h-[560px]">
-          <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-top" priority />
+        <div className="relative min-h-[420px] overflow-hidden bg-black md:min-h-[640px]">
+          <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="(min-width: 1280px) 58vw, (min-width: 768px) 54vw, 100vw" className="object-cover object-top" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
         </div>
 
