@@ -12,10 +12,10 @@ const workStories = [
     label: "Live moments, built with precision",
     video: "/videos/Event.mp4",
     images: [
-      "/images/Events/DSC_6200.JPG",
-      "/images/Events/DSC_6212.JPG",
-      "/images/Events/DSC_6283.JPG",
-      "/images/Events/RMP_5670.JPG",
+      "/images/Events/AMD-1.jpg",
+      "/images/Events/AMD-2.jpg",
+      "/images/Events/AMD-3.jpg",
+      "/images/Events/AMD-4.jpg",
     ],
   },
   {
@@ -23,10 +23,9 @@ const workStories = [
     label: "Participation that brings brands closer",
     video: "/videos/Activation.mp4",
     images: [
-      "/images/Activation/WhatsApp%20Image%202021-03-11%20at%2015.54.24.jpeg",
-      "/images/Activation/WhatsApp%20Image%202021-04-02%20at%2012.15.18%20PM%20(1).jpeg",
-      "/images/Activation/WhatsApp%20Image%202022-10-10%20at%2012.04.28%20AM.jpeg",
-      "/images/Activation/WhatsApp%20Image%202023-07-20%20at%208.43.48%20PM.jpeg",
+      "/images/Activation/charged-1.jpeg",
+      "/images/Activation/charged-2.jpeg",
+      "/images/Activation/charged-3.jpeg",
     ],
   },
   {
@@ -34,10 +33,9 @@ const workStories = [
     label: "Brand presence, built to be seen",
     video: "/videos/Branding.mp4",
     images: [
-      "/images/Branding/WhatsApp%20Image%202021-08-27%20at%209.39.57%20PM.jpeg",
-      "/images/Branding/WhatsApp%20Image%202021-08-31%20at%204.15.27%20PM%20(1).jpeg",
-      "/images/Branding/WhatsApp%20Image%202022-05-17%20at%2012.06.51%20PM%20(1).jpeg",
-      "/images/Branding/WhatsApp%20Image%202022-10-09%20at%2011.26.52%20PM%20(2).jpeg",
+      "/images/Branding/coffee-more-1.jpeg",
+      "/images/Branding/coffee-more-2.jpeg",
+      "/images/Branding/coffee-more-3.jpeg",
     ],
   },
   {
@@ -45,10 +43,9 @@ const workStories = [
     label: "Spaces made to pull people in",
     video: "/videos/Exhibition.mp4",
     images: [
-      "/images/Exhibition/DEB_3696.JPG",
-      "/images/Exhibition/WhatsApp%20Image%202022-05-17%20at%2011.44.24%20AM.jpeg",
-      "/images/Exhibition/WhatsApp%20Image%202022-05-17%20at%2012.09.09%20PM.jpeg",
-      "/images/Exhibition/WhatsApp%20Image%202026-06-20%20at%206.55.00%20PM.jpeg",
+      "/images/Exhibition/santasalo-1.jpeg",
+      "/images/Exhibition/santasalo-2.jpeg",
+      "/images/Exhibition/santasalo-3.jpeg",
     ],
   },
 ];

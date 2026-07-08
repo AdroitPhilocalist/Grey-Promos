@@ -55,22 +55,23 @@ export default function ContactCTA() {
             </motion.p>
 
             <div className="space-y-10">
-              <a href="tel:+919804303861" className="flex items-center gap-6 group">
+              <div className="flex items-center gap-6 group">
                 <div className="w-16 h-16 rounded-2xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500 shadow-xl">
                   <Phone size={24} strokeWidth={1.5} className="group-hover:text-white transition-colors" />
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-muted font-bold mb-2">Call Us</p>
-                  <p className="text-2xl font-display font-bold tracking-tight">+91 98043 03861</p>
+                  <a href="tel:+919804303861" className="block text-2xl font-display font-bold tracking-tight transition-colors hover:text-accent">+91 98043 03861</a>
+                  <a href="tel:+919804570253" className="mt-1 block text-2xl font-display font-bold tracking-tight transition-colors hover:text-accent">+91 98045 70253</a>
                 </div>
-              </a>
-              <a href="mailto:inquiries@greypromos.com" className="flex items-center gap-6 group">
+              </div>
+              <a href="mailto:connect@greypromosindia.com" className="flex items-center gap-6 group">
                 <div className="w-16 h-16 rounded-2xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500 shadow-xl">
                   <Mail size={24} strokeWidth={1.5} className="group-hover:text-white transition-colors" />
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-muted font-bold mb-2">Email Us</p>
-                  <p className="text-2xl font-display font-bold tracking-tight">inquiries@greypromos.com</p>
+                  <p className="text-2xl font-display font-bold tracking-tight">connect@greypromosindia.com</p>
                 </div>
               </a>
             </div>

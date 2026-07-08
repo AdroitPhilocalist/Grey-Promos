@@ -192,7 +192,7 @@ export default function TeamHierarchy() {
               <Crown className="text-accent" size={28} strokeWidth={1.5} />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid auto-cols-[82%] grid-flow-col gap-4 overflow-x-auto pb-2 [scrollbar-width:none] md:grid-flow-row md:grid-cols-2 md:overflow-visible md:pb-0 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">
               {directors.map((member, index) => (
                 <DirectorCard key={member.name} member={member} index={index} onSelect={() => setActiveMember(member)} />
               ))}
@@ -266,7 +266,7 @@ function TeamGroupBlock({ group, index, onSelect }: { group: TeamGroup; index: n
         </div>
       </div>
 
-      <div className="relative grid gap-3 sm:grid-cols-2">
+      <div className="relative grid auto-cols-[78%] grid-flow-col gap-3 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid-flow-row sm:grid-cols-2 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden">
         {group.members.map((member, memberIndex) => (
           <MemberTile key={member.name} member={member} index={memberIndex} onSelect={() => onSelect(member)} />
         ))}
@@ -332,8 +332,8 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
         </button>
 
         <div className="relative min-h-[420px] overflow-hidden bg-black md:min-h-[640px]">
-          <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="(min-width: 1280px) 58vw, (min-width: 768px) 54vw, 100vw" className="object-cover object-top" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
+          <Image src={member.image} alt={`${member.name}, ${member.role}`} fill sizes="(min-width: 1280px) 58vw, (min-width: 768px) 54vw, 100vw" className="object-contain object-center md:object-cover md:object-top" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/36 via-transparent to-black/10 md:from-black/70" />
         </div>
 
         <div className="relative z-10 flex flex-col justify-center p-7 md:p-10">

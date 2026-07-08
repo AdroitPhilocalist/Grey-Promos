@@ -67,7 +67,8 @@ export default function Footer() {
               </p>
               <div className="pt-2">
                 <p className="mb-2">+91 98043 03861</p>
-                <p>inquiries@greypromos.com</p>
+                <p className="mb-2">+91 98045 70253</p>
+                <p>connect@greypromosindia.com</p>
               </div>
             </div>
           </div>
