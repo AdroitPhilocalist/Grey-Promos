@@ -157,7 +157,7 @@ export default function Services({ limit, showFilters = true }: ServicesProps) {
             transition={{ delay: 0.15 }}
             className="max-w-xl text-base font-light leading-relaxed tracking-wide text-muted md:justify-self-end md:text-lg"
           >
-            From a first campaign idea to the final on-ground detail, Grey Promos brings planning, production, people, and presence together.
+            From a first campaign idea to the final on-ground detail, Grey Promos India brings planning, production, people, and presence together.
           </motion.p>
         </div>
 

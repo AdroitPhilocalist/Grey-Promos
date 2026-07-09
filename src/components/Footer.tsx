@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { ChakraD } from "./AshokaChakra";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,7 +15,7 @@ export default function Footer() {
           <div className="col-span-1 lg:col-span-1">
             <Link href="/" className="inline-block mb-10">
               <span className="text-2xl font-display font-bold tracking-tighter">
-                GREY<span className="text-accent">PROMOS</span>
+                GREY<span className="text-accent">PROMOS</span> <span><span className="text-[#FF9933]">I</span><span className="text-[#FF9933]">N</span><ChakraD /><span className="text-[#138808]">I</span><span className="text-[#138808]">A</span></span>
               </span>
             </Link>
             <p className="text-muted text-base leading-relaxed mb-10 font-light tracking-wide">

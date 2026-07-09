@@ -162,7 +162,7 @@ export function GridGlobe() {
                     ? "India Presence"
                     : activePresence?.scope === "hub"
                       ? "Headquarters"
-                      : "Grey Promos Network"}
+                      : "Grey Promos India Network"}
               </span>
               </div>
               <div className="relative font-display text-xl font-bold tracking-tight text-white md:text-2xl">

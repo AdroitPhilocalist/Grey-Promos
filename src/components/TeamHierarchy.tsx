@@ -54,7 +54,7 @@ const teamMembers: TeamMember[] = [
     group: "Leadership",
     tier: "director",
     writeup:
-      "With over 10 years of experience across marketing, brand management, and digital strategy, Anil brings a hands-on growth mindset to Grey Promos. His belief in making stars out of scratches reflects the journey, resilience, and ambition behind the brand.",
+      "With over 10 years of experience across marketing, brand management, and digital strategy, Anil brings a hands-on growth mindset to Grey Promos India. His belief in making stars out of scratches reflects the journey, resilience, and ambition behind the brand.",
   },
   {
     name: "Mita Dutta",
@@ -176,7 +176,7 @@ export default function TeamHierarchy() {
             transition={{ delay: 0.16 }}
             className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed tracking-wide text-muted md:text-lg"
           >
-            A clear view of the people behind Grey Promos, arranged by responsibility so clients can understand the depth behind every project.
+            A clear view of the people behind Grey Promos India, arranged by responsibility so clients can understand the depth behind every project.
           </motion.p>
         </div>
 
@@ -299,7 +299,7 @@ function MemberTile({ member, index, onSelect }: { member: TeamMember; index: nu
 
 function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => void }) {
   const defaultText =
-    "A key member of the Grey Promos team, contributing to the planning, coordination, and execution systems that help every brand experience move with discipline and care.";
+    "A key member of the Grey Promos India team, contributing to the planning, coordination, and execution systems that help every brand experience move with discipline and care.";
 
   return (
     <motion.div

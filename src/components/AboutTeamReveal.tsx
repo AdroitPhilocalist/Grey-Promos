@@ -30,7 +30,7 @@ export default function AboutTeamReveal() {
                 Meet the people behind the momentum.
               </h2>
               <p className="mt-5 max-w-2xl text-base font-light leading-relaxed tracking-wide text-muted md:text-lg">
-                An official view of Grey Promos&apos; leadership and execution teams, organized by responsibility across direction, client relationships, operations, MIS, and design.
+                An official view of Grey Promos India&apos; leadership and execution teams, organized by responsibility across direction, client relationships, operations, MIS, and design.
               </p>
             </div>
 

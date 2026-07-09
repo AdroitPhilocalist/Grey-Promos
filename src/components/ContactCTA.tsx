@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
-import { Send, Phone, Mail, ChevronDown } from "lucide-react";
+import { Send, Phone, Mail, ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const servicesList = [
@@ -15,9 +15,48 @@ const servicesList = [
   "Product Launches",
 ];
 
+type SubmissionState = "idle" | "submitting" | "success" | "error";
+
 export default function ContactCTA() {
   const [selectedService, setSelectedService] = useState("Select a service");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [status, setStatus] = useState<SubmissionState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (selectedService === "Select a service") {
+      setStatus("error");
+      setErrorMessage("Please choose the service you need before sending.");
+      return;
+    }
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: new FormData(event.currentTarget),
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(payload.error || "We could not send your inquiry. Please try again.");
+      }
+
+      formRef.current?.reset();
+      setSelectedService("Select a service");
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "We could not send your inquiry. Please try again."
+      );
+    }
+  };
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
@@ -51,7 +90,7 @@ export default function ContactCTA() {
               transition={{ delay: 0.2 }}
               className="text-muted text-xl leading-relaxed mb-16 max-w-lg font-light tracking-wide"
             >
-              Tell us about your requirement. Grey Promos will help you bring it to life from concept to completion.
+              Tell us about your requirement. Grey Promos India will help you bring it to life from concept to completion.
             </motion.p>
 
             <div className="space-y-10">
@@ -84,13 +123,39 @@ export default function ContactCTA() {
             className="glass-card p-10 md:p-16 relative"
           >
             <div className="absolute right-0 top-0 h-40 w-40 opacity-30 pointer-events-none bg-[radial-gradient(circle,rgba(255,74,28,0.42)_1px,transparent_1.8px)] [background-size:18px_18px] [mask-image:linear-gradient(135deg,rgba(0,0,0,0.9),transparent_68%)]" />
-            
-            <form className="space-y-10 relative z-10">
+
+            {status === "success" ? (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="relative z-10 py-16 text-center"
+              >
+                <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-accent/30 bg-accent/10 text-accent">
+                  <Check size={29} />
+                </span>
+                <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.28em] text-accent">Inquiry sent</p>
+                <h3 className="mt-4 text-3xl md:text-4xl font-display font-bold tracking-tight">Thank you for reaching out.</h3>
+                <p className="mx-auto mt-4 max-w-md text-muted font-light leading-relaxed">
+                  Your inquiry is on its way to connect@greypromosindia.com. Our team will get back to you shortly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-8 rounded-full border border-white/15 px-6 py-3 text-sm font-bold transition-colors hover:border-accent hover:text-accent"
+                >
+                  Send another inquiry
+                </button>
+              </motion.div>
+            ) : (
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-10 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-3">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Full Name</label>
                   <input 
                     type="text" 
+                    name="name"
+                    required
+                    autoComplete="name"
                     placeholder="John Doe"
                     className="w-full bg-transparent border-b border-white/10 py-3 focus:outline-none focus:border-accent transition-colors font-light tracking-wide text-lg"
                   />
@@ -99,6 +164,9 @@ export default function ContactCTA() {
                   <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Email Address</label>
                   <input 
                     type="email" 
+                    name="email"
+                    required
+                    autoComplete="email"
                     placeholder="john@example.com"
                     className="w-full bg-transparent border-b border-white/10 py-3 focus:outline-none focus:border-accent transition-colors font-light tracking-wide text-lg"
                   />
@@ -107,6 +175,7 @@ export default function ContactCTA() {
               
               <div className="space-y-3">
                 <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Service Required</label>
+                <input type="hidden" name="service" value={selectedService === "Select a service" ? "" : selectedService} />
                 <div className="relative">
                   <button
                     type="button"
@@ -170,18 +239,31 @@ export default function ContactCTA() {
                 <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Message</label>
                 <textarea 
                   rows={4}
+                  name="message"
+                  required
                   placeholder="Tell us about your project..."
                   className="w-full bg-transparent border-b border-white/10 py-3 focus:outline-none focus:border-accent transition-colors resize-none font-light tracking-wide text-lg"
                 />
               </div>
 
+              {status === "error" && (
+                <p role="alert" className="rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-200">
+                  {errorMessage}
+                </p>
+              )}
+
               <MagneticButton className="w-full">
-                <button className="w-full bg-white text-black py-5 rounded-full font-bold flex items-center justify-center gap-3 transition-all hover:bg-accent hover:text-white shadow-xl shadow-white/5 hover:shadow-accent/20">
-                  Send Inquiry
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="w-full bg-white text-black py-5 rounded-full font-bold flex items-center justify-center gap-3 transition-all hover:bg-accent hover:text-white shadow-xl shadow-white/5 hover:shadow-accent/20 disabled:cursor-wait disabled:opacity-70"
+                >
+                  {status === "submitting" ? "Sending..." : "Send Inquiry"}
                   <Send size={20} strokeWidth={2} />
                 </button>
               </MagneticButton>
             </form>
+            )}
           </motion.div>
         </div>
       </div>

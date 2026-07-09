@@ -505,13 +505,13 @@ body {
   }
 
   @media (max-width: 767px) {
-    .theme-toggle {
-      top: 30px;
-      right: 58px;
-      z-index: 55;
-      transform: scale(0.72) translateY(-6px);
-      transform-origin: top right;
-    }
+  .theme-toggle {
+    top: 28px;
+    right: 5rem;
+    z-index: 55;
+    transform: scale(0.72) translateY(-6px);
+    transform-origin: top right;
+  }
 
     .theme-toggle.is-ready {
       transform: scale(0.72);

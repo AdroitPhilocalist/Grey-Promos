@@ -18,12 +18,12 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: Request) {
-  const recipient = process.env.CAREERS_RECIPIENT_EMAIL;
+  const recipient = process.env.CAREERS_RECIPIENT_EMAIL || "connect@greypromosindia.com";
   const from = process.env.RESEND_FROM_EMAIL;
   const apiKey = process.env.RESEND_API_KEY;
 
-  if (!recipient || !from || !apiKey) {
-    return NextResponse.json({ error: "The careers mailbox is not configured yet. Please contact Grey Promos directly." }, { status: 503 });
+  if (!from || !apiKey) {
+    return NextResponse.json({ error: "The careers mailbox is not configured yet. Please contact Grey Promos India directly." }, { status: 503 });
   }
 
   try {

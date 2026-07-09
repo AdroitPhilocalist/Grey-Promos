@@ -1,6 +1,7 @@
 import React from "react";
 import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
+import PresenceMap from "@/components/PresenceMap";
 import CareersCTA from "@/components/CareersCTA";
 
 export default function ContactPage() {
@@ -12,6 +13,7 @@ export default function ContactPage() {
         subtitle="Ready to take your brand to the next level? Tell us about your project and let's create an extraordinary experience together."
       /> */}
       <ContactCTA />
+      <PresenceMap />
       <CareersCTA />
     </>
   );

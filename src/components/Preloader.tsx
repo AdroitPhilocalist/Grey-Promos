@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChakraD } from "./AshokaChakra";
 
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ export default function Preloader() {
 
   const firstPart = "GREY";
   const secondPart = "PROMOS";
+  const thirdPart = "INDIA";
 
   return (
     <AnimatePresence>
@@ -71,22 +73,39 @@ export default function Preloader() {
                 ))}
               </div>
               <div className="flex">
-                {secondPart.split("").map((char, i) => (
-                  <motion.span
-                    key={`second-${i}`}
-                    initial={{ y: 80, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: (firstPart.length + i) * 0.05,
-                      ease: [0.33, 1, 0.68, 1] 
-                    }}
-                    className="text-5xl md:text-8xl font-display font-bold tracking-tighter text-accent"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </div>
+              {secondPart.split("").map((char, i) => (
+                <motion.span
+                  key={`second-${i}`}
+                  initial={{ y: 80, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: (firstPart.length + i) * 0.05,
+                    ease: [0.33, 1, 0.68, 1] 
+                  }}
+                  className="text-5xl md:text-8xl font-display font-bold tracking-tighter text-accent"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+            <div className="flex">
+              {thirdPart.split("").map((char, i) => (
+                <motion.span
+                  key={`third-${i}`}
+                  initial={{ y: 80, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: (firstPart.length + secondPart.length + i) * 0.05,
+                    ease: [0.33, 1, 0.68, 1] 
+                  }}
+                  className={`text-5xl md:text-8xl font-display font-bold tracking-tighter ${i < 2 ? "text-[#FF9933]" : i === 2 ? "text-white" : "text-[#138808]"}`}
+                >
+                  {i === 2 ? <ChakraD /> : char}
+                </motion.span>
+              ))}
+            </div>
             </div>
             
             {/* Subtext with improved visibility */}

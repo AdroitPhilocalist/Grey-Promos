@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import MagneticButton from "./MagneticButton";
+import { ChakraD } from "./AshokaChakra";
 import { cn } from "@/lib/utils";
 
 import { usePathname } from "next/navigation";
@@ -54,7 +55,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             className="text-xl md:text-2xl font-display font-bold tracking-tighter"
           >
-            GREY<span className="text-accent">PROMOS</span>
+            GREY<span className="text-accent">PROMOS</span> <span><span className="text-[#FF9933]">I</span><span className="text-[#FF9933]">N</span><ChakraD /><span className="text-[#138808]">I</span><span className="text-[#138808]">A</span></span>
           </motion.div>
         </Link>
 

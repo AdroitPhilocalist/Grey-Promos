@@ -67,7 +67,7 @@ export default function CareersCTA() {
       <div className="mx-auto max-w-6xl border-t border-white/[0.08] pt-12 md:pt-16">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-accent">Careers at Grey Promos</p>
+            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-accent">Careers at Grey Promos India</p>
             <h2 className="text-4xl font-display font-bold leading-[0.98] md:text-6xl">
               Bring your next <span className="text-gradient">big idea</span> to life with us.
             </h2>
@@ -178,7 +178,7 @@ export default function CareersCTA() {
                       {status === "error" && <p role="alert" className="rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-200">{errorMessage}</p>}
 
                       <div className="flex flex-col justify-between gap-4 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center">
-                        <p className="max-w-sm text-xs leading-relaxed text-muted/70">By applying, you agree that Grey Promos may contact you regarding relevant opportunities.</p>
+                        <p className="max-w-sm text-xs leading-relaxed text-muted/70">By applying, you agree that Grey Promos India may contact you regarding relevant opportunities.</p>
                         <button type="submit" disabled={status === "submitting"} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-black transition-colors hover:bg-accent hover:text-white disabled:cursor-wait disabled:opacity-70">
                           {status === "submitting" ? "Sending application..." : "Submit application"}
                           <Send size={16} />

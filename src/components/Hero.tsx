@@ -69,7 +69,7 @@ export default function Hero() {
                 variants={itemVariants}
                 className="hero-support-copy text-base md:text-xl lg:text-[1.32rem] text-white/82 leading-relaxed font-light tracking-wide"
               >
-                For over a decade, Grey Promos has turned campaigns, events, retail branding, outdoor activations, digital media, and technology-led ideas into seamless real-world brand experiences.
+                For over a decade, Grey Promos India has turned campaigns, events, retail branding, outdoor activations, digital media, and technology-led ideas into seamless real-world brand experiences.
               </motion.p>
 
               <motion.div

@@ -89,7 +89,7 @@ export default function ServiceSignpostShowcase() {
             <div className="relative min-w-[920px] md:min-w-0">
               <Image
                 src="/images/signpost.png"
-                alt="Grey Promos services signpost"
+                alt="Grey Promos India services signpost"
                 width={1632}
                 height={918}
                 priority
@@ -97,7 +97,7 @@ export default function ServiceSignpostShowcase() {
               />
               <Image
                 src="/images/signpost-light.png"
-                alt="Grey Promos services signpost"
+                alt="Grey Promos India services signpost"
                 width={1632}
                 height={918}
                 priority
@@ -106,7 +106,7 @@ export default function ServiceSignpostShowcase() {
               <svg
                 className="absolute inset-0 h-full w-full"
                 viewBox="0 0 1632 918"
-                aria-label="Choose a Grey Promos service from the signpost"
+                aria-label="Choose a Grey Promos India service from the signpost"
               >
                 {signpostZones.map((zone) => {
                   const isActive = activeSlug === zone.slug;

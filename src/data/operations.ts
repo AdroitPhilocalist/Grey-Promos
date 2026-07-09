@@ -12,7 +12,7 @@ export const operations = {
       id: "kolkata",
       type: "Registered Office",
       city: "Kolkata",
-      address: ["4, P. C. Mitra Lane", "Kolkata 700033"],
+      address: ["4 No. Purna Chandra Mitra Lane West Bengal", "Kolkata - 700033"],
       lat: 22.5726,
       lng: 88.3639,
     },

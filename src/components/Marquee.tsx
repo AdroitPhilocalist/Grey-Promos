@@ -101,7 +101,7 @@ export default function Marquee() {
             </motion.h2>
           </div>
           <motion.p initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.16 }} className="max-w-xl text-base font-light leading-relaxed tracking-wide text-muted md:justify-self-end md:text-lg">
-            A first look at the real spaces, structures, and live brand moments built by Grey Promos on ground.
+            A first look at the real spaces, structures, and live brand moments built by Grey Promos India on ground.
           </motion.p>
         </div>
 
@@ -147,7 +147,7 @@ function WorkStory({ story, index, onPhotoOpen }: { story: WorkStoryData; index:
         <div className="grid grid-cols-2 gap-3 lg:grid-rows-2 lg:gap-4 lg:[direction:ltr]">
           {story.images.map((image, imageIndex) => (
             <motion.button key={image} type="button" onClick={() => onPhotoOpen(imageIndex)} whileHover={{ y: -4 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-white/[0.1] bg-white/[0.03] text-left outline-none transition-colors focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/40 lg:aspect-auto lg:min-h-0" aria-label={`View ${story.title} photo ${imageIndex + 1}`}>
-              <Image src={image} alt={`Grey Promos ${story.title.toLowerCase()} work, frame ${imageIndex + 1}`} fill sizes="(max-width: 1024px) 50vw, 24vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src={image} alt={`Grey Promos India ${story.title.toLowerCase()} work, frame ${imageIndex + 1}`} fill sizes="(max-width: 1024px) 50vw, 24vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               <span className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <span className="absolute bottom-3 right-3 grid h-9 w-9 translate-y-2 place-items-center rounded-full border border-white/25 bg-black/35 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                 <ZoomIn size={16} />

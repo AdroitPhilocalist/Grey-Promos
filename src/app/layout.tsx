@@ -21,7 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Grey Promos India Pvt. Ltd. | Branding, Events, Activations & Marketing Agency",
   description: "Grey Promos India Pvt. Ltd. creates extraordinary brand experiences through retail branding, corporate events, exhibitions, activations, roadshows, mobile van campaigns, hoardings, and creative production across India.",
-  keywords: "Grey Promos, branding agency India, event activation agency, retail branding, exhibition stall fabrication, mobile van advertising, LED van campaign, mall branding, corporate events, roadshows, hoardings, Kolkata marketing agency",
+  keywords: "Grey Promos India, branding agency India, event activation agency, retail branding, exhibition stall fabrication, mobile van advertising, LED van campaign, mall branding, corporate events, roadshows, hoardings, Kolkata marketing agency",
 };
 
 export default function RootLayout({

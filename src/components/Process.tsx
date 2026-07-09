@@ -60,7 +60,7 @@ export default function Process() {
             </motion.h2>
           </div>
           <motion.p initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="max-w-xl text-base font-light leading-relaxed tracking-wide text-muted md:justify-self-end md:text-lg">
-            Not a handoff between departments. One connected Grey Promos workflow, carried from the first brief to the live brand moment.
+            Not a handoff between departments. One connected Grey Promos India workflow, carried from the first brief to the live brand moment.
           </motion.p>
         </div>
 
