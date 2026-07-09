@@ -32,6 +32,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("mobile-menu-open", isMobileMenuOpen);
+    return () => document.documentElement.classList.remove("mobile-menu-open");
+  }, [isMobileMenuOpen]);
+
   return (
     <header
       className={cn(
@@ -128,8 +133,14 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white p-1"
+          type="button"
+          className={cn(
+            "md:hidden grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-md transition-all duration-300",
+            isMobileMenuOpen ? "mr-0" : "mr-14"
+          )}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -142,8 +153,16 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-black md:hidden"
           >
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute right-8 top-8 grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-white backdrop-blur-md transition-colors hover:border-accent hover:bg-accent"
+              aria-label="Close navigation menu"
+            >
+              <X size={24} />
+            </button>
             {navLinks.map((link) => (
               <Link
                 key={link.name}

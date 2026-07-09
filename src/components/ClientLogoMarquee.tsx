@@ -6,8 +6,8 @@ import { clients } from "@/data/clients";
 
 function ClientLogoTile({ client }: { client: string }) {
   return (
-    <div className="client-marquee-tile group flex h-20 min-w-max items-center px-5 transition-all duration-500 hover:-translate-y-1 md:h-24 md:px-8">
-      <span className="client-marquee-name whitespace-nowrap text-3xl font-bold transition-all duration-500 md:text-5xl">
+    <div className="client-marquee-tile group flex h-24 min-w-max items-center px-3 transition-all duration-500 hover:-translate-y-1 md:h-28 md:px-4">
+      <span className="client-marquee-name whitespace-nowrap px-5 py-3 text-2xl font-bold transition-all duration-500 md:px-7 md:py-4 md:text-4xl">
         {client}
       </span>
     </div>
@@ -73,7 +73,7 @@ export function ClientLogoMarqueeText() {
 
 export function ClientLogoRollingStrip() {
   return (
-    <div className="relative">
+    <div className="client-marquee-stage relative">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-background to-transparent md:w-44" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-background to-transparent md:w-44" />
       <ClientLogoMarqueeRow row={clients} />

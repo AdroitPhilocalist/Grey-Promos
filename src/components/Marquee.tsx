@@ -26,6 +26,7 @@ const workStories = [
       "/images/Activation/charged-1.jpeg",
       "/images/Activation/charged-2.jpeg",
       "/images/Activation/charged-3.jpeg",
+      "/images/Activation/charged-4.png",
     ],
   },
   {
@@ -36,6 +37,7 @@ const workStories = [
       "/images/Branding/coffee-more-1.jpeg",
       "/images/Branding/coffee-more-2.jpeg",
       "/images/Branding/coffee-more-3.jpeg",
+      "/images/Branding/coffee-more-4.png",
     ],
   },
   {
@@ -46,6 +48,7 @@ const workStories = [
       "/images/Exhibition/santasalo-1.jpeg",
       "/images/Exhibition/santasalo-2.jpeg",
       "/images/Exhibition/santasalo-3.jpeg",
+      "/images/Exhibition/santasalo-4.png",
     ],
   },
 ];
