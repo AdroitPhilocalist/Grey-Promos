@@ -2,7 +2,7 @@
 
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BriefcaseBusiness, Check, FileUp, Send, X } from "lucide-react";
+import { BriefcaseBusiness, Check, Send, X } from "lucide-react";
 
 const roleOptions = [
   "Client Servicing",
@@ -19,7 +19,6 @@ export default function CareersCTA() {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [resumeName, setResumeName] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -39,22 +38,34 @@ export default function CareersCTA() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      setStatus("error");
+      setErrorMessage("The careers form is not configured yet. Please email your application to connect@greypromosindia.com directly.");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/careers", {
-        method: "POST",
-        body: new FormData(event.currentTarget),
-      });
-      const payload = await response.json();
+      const formData = new FormData(event.currentTarget);
+      formData.append("access_key", accessKey);
+      formData.append("subject", `Career application: ${formData.get("name") || "Applicant"} - ${formData.get("role") || ""}`);
+      formData.append("from_name", "Grey Promos India Careers");
 
-      if (!response.ok) {
-        throw new Error(payload.error || "We could not send your application. Please try again.");
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.message || "We could not send your application. Please try again.");
       }
 
       formRef.current?.reset();
-      setResumeName("");
       setStatus("success");
     } catch (error) {
       setStatus("error");
@@ -140,6 +151,7 @@ export default function CareersCTA() {
                     <p className="mt-4 max-w-xl text-muted">Share a few details and your resume. It takes about two minutes.</p>
 
                     <form ref={formRef} onSubmit={handleSubmit} className="mt-9 space-y-7">
+                      <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
                       <div className="grid gap-6 sm:grid-cols-2">
                         <Field label="Full name"><input name="name" required autoComplete="name" placeholder="Your name" className="career-input" /></Field>
                         <Field label="Email address"><input name="email" type="email" required autoComplete="email" placeholder="you@example.com" className="career-input" /></Field>
@@ -163,17 +175,10 @@ export default function CareersCTA() {
                         <textarea name="message" required rows={3} placeholder="What kind of work are you most excited to do?" className="career-input resize-none" />
                       </Field>
 
-                      <div>
-                        <label className="mb-3 block text-[10px] font-bold uppercase tracking-[0.2em] text-muted/70">Resume <span className="text-accent">*</span></label>
-                        <label className="group flex cursor-pointer items-center gap-4 rounded-xl border border-dashed border-white/20 bg-white/[0.025] px-5 py-4 transition-colors hover:border-accent/60 hover:bg-accent/[0.05]">
-                          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/[0.08] text-white/80 transition-colors group-hover:bg-accent group-hover:text-white"><FileUp size={18} /></span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block truncate text-sm font-semibold text-white/90">{resumeName || "Upload your resume"}</span>
-                            <span className="mt-1 block text-xs text-muted">PDF, DOC, or DOCX. Maximum 5 MB.</span>
-                          </span>
-                          <input name="resume" type="file" required accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="sr-only" onChange={(event) => setResumeName(event.target.files?.[0]?.name || "")} />
-                        </label>
-                      </div>
+                      <Field label="Resume link">
+                        <input name="resume_link" type="url" required placeholder="Paste a Google Drive, Dropbox, or LinkedIn link" className="career-input" />
+                        <span className="mt-2 block text-xs text-muted">Upload your resume to Google Drive / Dropbox and paste the share link. Please set it to &ldquo;anyone with the link can view&rdquo;.</span>
+                      </Field>
 
                       {status === "error" && <p role="alert" className="rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-200">{errorMessage}</p>}
 

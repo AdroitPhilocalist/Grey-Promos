@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChakraD } from "./AshokaChakra";
+import { GreyD } from "./IndiaWordmark";
 
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
@@ -100,9 +100,9 @@ export default function Preloader() {
                     delay: (firstPart.length + secondPart.length + i) * 0.05,
                     ease: [0.33, 1, 0.68, 1] 
                   }}
-                  className={`text-5xl md:text-8xl font-display font-bold tracking-tighter ${i < 2 ? "text-[#FF9933]" : i === 2 ? "text-white" : "text-[#138808]"}`}
+                  className={`text-5xl md:text-8xl font-display font-bold tracking-tighter ${i < 2 ? "text-[#C9C9C9]" : i === 2 ? "text-[#9B9B9B]" : "text-[#5A5A5A]"}`}
                 >
-                  {i === 2 ? <ChakraD /> : char}
+                  {i === 2 ? <GreyD /> : char}
                 </motion.span>
               ))}
             </div>

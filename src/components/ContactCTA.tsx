@@ -33,18 +33,32 @@ export default function ContactCTA() {
       return;
     }
 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      setStatus("error");
+      setErrorMessage(
+        "The inquiry form is not configured yet. Please email connect@greypromosindia.com directly."
+      );
+      return;
+    }
+
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
+      const formData = new FormData(event.currentTarget);
+      formData.append("access_key", accessKey);
+      formData.append("subject", `New inquiry from ${formData.get("name") || "website visitor"} - ${selectedService}`);
+      formData.append("from_name", "Grey Promos India Website");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: new FormData(event.currentTarget),
+        body: formData,
       });
       const payload = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        throw new Error(payload.error || "We could not send your inquiry. Please try again.");
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.message || "We could not send your inquiry. Please try again.");
       }
 
       formRef.current?.reset();
@@ -148,6 +162,7 @@ export default function ContactCTA() {
               </motion.div>
             ) : (
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-10 relative z-10">
+              <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-3">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-muted/60">Full Name</label>
