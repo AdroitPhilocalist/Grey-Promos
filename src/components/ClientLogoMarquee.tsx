@@ -74,8 +74,8 @@ export function ClientLogoMarqueeText() {
 export function ClientLogoRollingStrip() {
   return (
     <div className="client-marquee-stage relative">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-background to-transparent md:w-44" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-background to-transparent md:w-44" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-[var(--background)] to-transparent md:w-44" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-[var(--background)] to-transparent md:w-44" />
       <ClientLogoMarqueeRow row={clients} />
     </div>
   );

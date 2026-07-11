@@ -39,7 +39,7 @@ export default function Preloader() {
             filter: "blur(20px)",
             transition: { duration: 1, ease: [0.76, 0, 0.24, 1] }
           }}
-          className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] bg-[var(--background)] flex flex-col items-center justify-center overflow-hidden"
         >
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
